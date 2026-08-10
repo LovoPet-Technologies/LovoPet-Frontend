@@ -38,7 +38,7 @@ function NavBar() {
 
         <div className="hidden md:block">
           <a
-            href="/login"
+            href="/auth"
             className="inline-flex items-center gap-2 rounded-full bg-[#E86A33] px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-[#E86A33]/30 transition-colors hover:bg-[#5C2A73]"
           >
             <LogIn size={18} />

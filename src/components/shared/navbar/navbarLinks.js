@@ -2,7 +2,7 @@ const navbarLinks = [
   {
     id: 1,
     name: "Home",
-    path: "/", // Or "#home" if you prefer it to scroll to the top rather than act as a route link
+    path: "/",
   },
   {
     id: 2,
