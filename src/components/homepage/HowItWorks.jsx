@@ -31,35 +31,37 @@ const steps = [
 
 function HowItWorks() {
   return (
-    <section className="bg-[#F8F3EC] py-24">
+    <section className="bg-[#F8F3EC] py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
         {/* Heading */}
         <div className="mx-auto max-w-3xl text-center">
-          <span className="rounded-full bg-[#E86A33]/10 px-4 py-2 text-sm font-semibold text-[#E86A33]">
-            HOW IT WORKS
+          <span className="rounded-full bg-[#E86A33]/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[#E86A33]">
+            How It Works
           </span>
 
-          <h2 className="mt-6 text-4xl font-extrabold text-[#1E2A4A] md:text-5xl">
+          <h2 className="mt-6 text-3xl font-extrabold text-[#1E2A4A] sm:text-4xl md:text-5xl">
             Caring for Your Pet
             <br />
             Has Never Been Easier
           </h2>
 
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-lg">
             Start your pet care journey in three simple steps and enjoy a
             seamless digital experience with LovoPet.
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="mt-20 grid gap-10 lg:grid-cols-3">
+        {/* Steps Container */}
+        {/* Changed from Grid to Flex to easily constrain card widths on tablet/mobile-desktop */}
+        <div className="mt-20 flex flex-col items-center gap-12 lg:flex-row lg:items-stretch lg:justify-center lg:gap-10">
           {steps.map((step, index) => {
             const Icon = step.icon;
 
             return (
               <div
                 key={step.id}
-                className="relative rounded-3xl border border-[#E5D8C9] bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                // max-w-md prevents the horizontal stretching issue. lg:max-w-none lets them fill columns on desktop.
+                className="relative w-full max-w-md rounded-3xl border border-[#E5D8C9] bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl lg:flex-1 lg:max-w-none"
               >
                 {/* Step Number */}
                 <div className="absolute -top-5 left-8 flex h-10 w-10 items-center justify-center rounded-full bg-[#E86A33] text-lg font-bold text-white shadow-md">
@@ -67,24 +69,24 @@ function HowItWorks() {
                 </div>
 
                 {/* Icon */}
-                <div className="mt-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#5C2A73]/10">
-                  <Icon size={30} className="text-[#5C2A73]" />
+                <div className="mt-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#5C2A73]/10">
+                  <Icon size={32} className="text-[#5C2A73]" />
                 </div>
 
                 {/* Title */}
-                <h3 className="mt-8 text-2xl font-bold text-[#5C2A73]">
+                <h3 className="mt-8 text-xl font-bold text-[#5C2A73] sm:text-2xl">
                   {step.title}
                 </h3>
 
                 {/* Description */}
-                <p className="mt-4 leading-7 text-gray-600">
+                <p className="mt-3 text-sm leading-relaxed text-gray-600 sm:text-base">
                   {step.description}
                 </p>
 
                 {/* Arrow (Desktop Only) */}
                 {index !== steps.length - 1 && (
-                  <div className="absolute -right-8 top-1/2 hidden -translate-y-1/2 lg:block">
-                    <ArrowRight size={32} className="text-[#E86A33]" />
+                  <div className="absolute -right-8 top-1/2 z-10 hidden -translate-y-1/2 lg:block">
+                    <ArrowRight size={28} className="text-[#E86A33]" />
                   </div>
                 )}
               </div>
