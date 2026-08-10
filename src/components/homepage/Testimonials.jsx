@@ -1,4 +1,5 @@
-import { Quote, Star } from "lucide-react";
+import { useState } from "react";
+import { Quote, Star, ChevronDown, ChevronUp } from "lucide-react";
 
 const testimonials = [
   {
@@ -22,9 +23,34 @@ const testimonials = [
     review:
       "LovoPet provides a seamless experience. From AI guidance to connecting with professionals, everything feels thoughtfully designed.",
   },
+  {
+    id: 4,
+    name: "David Kim",
+    role: "Dog Owner",
+    review:
+      "Fast, reliable, and genuinely caring service. My puppy's vaccination schedule has never been easier to track and manage.",
+  },
+  {
+    id: 5,
+    name: "Priya Nair",
+    role: "Pet Parent",
+    review:
+      "I love how the AI assistant flags potential issues early. It gave me real peace of mind before my vet visit confirmed everything.",
+  },
+  {
+    id: 6,
+    name: "James Wilson",
+    role: "Rabbit Owner",
+    review:
+      "Finding specialized care for an exotic pet used to be a nightmare. LovoPet connected me with the right vet in minutes.",
+  },
 ];
 
 function Testimonials() {
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleTestimonials = showAll ? testimonials : testimonials.slice(0, 3);
+
   return (
     <section className="bg-[#FDF8F2] py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -48,7 +74,7 @@ function Testimonials() {
 
         {/* Cards */}
         <div className="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {testimonials.map((testimonial) => (
+          {visibleTestimonials.map((testimonial) => (
             <div
               key={testimonial.id}
               className="rounded-3xl border border-[#E5D8C9] bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
@@ -88,6 +114,27 @@ function Testimonials() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Toggle button */}
+        <div className="mt-14 flex justify-center">
+          <button
+            onClick={() => setShowAll((prev) => !prev)}
+            className="flex items-center gap-2 rounded-full bg-[#5C2A73] px-8 py-3 font-semibold text-white transition-all duration-300 hover:bg-[#4A2260] hover:shadow-lg"
+          >
+            {showAll ? "Show Less" : "Show More Reviews"}
+            {showAll ? (
+              <ChevronUp
+                size={20}
+                className="transition-transform duration-300"
+              />
+            ) : (
+              <ChevronDown
+                size={20}
+                className="transition-transform duration-300"
+              />
+            )}
+          </button>
         </div>
       </div>
     </section>

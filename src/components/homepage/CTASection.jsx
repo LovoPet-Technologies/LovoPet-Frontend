@@ -1,60 +1,74 @@
-import { ArrowRight, PawPrint } from "lucide-react";
+import { FaLinkedin } from "react-icons/fa";
 
 function CTASection() {
+  const founders = [
+    {
+      name: "Saheli Ghosh Roy",
+      role: "CEO & Founder",
+      image: "/founder.jpeg",
+      linkedin: "https://www.linkedin.com/in/saheli-ghosh-roy-b4a881381/",
+    },
+    {
+      name: "Soumili Das",
+      role: "Co-Founder",
+      image: "/cofounder.png",
+      linkedin: "https://www.linkedin.com/in/soumilidas01/",
+    },
+  ];
+
   return (
-    <section className="bg-[#F8F3EC] py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="overflow-hidden rounded-[2rem] bg-[#5C2A73] px-8 py-16 text-center shadow-2xl md:px-16">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
-            <PawPrint size={18} />
-            Join the LovoPet Community
-          </div>
-
-          {/* Heading */}
-          <h2 className="mt-8 text-4xl font-extrabold leading-tight text-white md:text-5xl lg:text-6xl">
-            Your Pet Deserves
-            <br />
-            The Best Care
+    <section className="bg-[#F8F3EC] py-5">
+      <div className="mx-auto max-w-4xl px-6 text-center">
+        
+        {/* Founders Section */}
+        <div>
+          <span className="text-sm font-bold uppercase tracking-widest text-[#E86A33]">
+            Leadership
+          </span>
+          <h2 className="mt-3 text-3xl font-extrabold text-[#1E2A4A] sm:text-4xl">
+            Meet our founders
           </h2>
-
-          {/* Description */}
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-200">
-            Discover trusted veterinary care, AI-powered health support, pet
-            shopping, adoption, and wellness services — all designed to keep
-            your furry companion happy and healthy.
+          <p className="mx-auto mt-4 max-w-xl text-base text-[#1E2A4A]/70">
+            The passionate team behind LovoPet's mission to revolutionize pet care and bring everything your pet needs onto one platform.
           </p>
 
-          {/* Buttons */}
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <button className="inline-flex items-center gap-2 rounded-xl bg-[#E86A33] px-8 py-4 text-lg font-bold text-white transition-all duration-300 hover:scale-105 hover:bg-white hover:text-[#5C2A73]">
-              Explore Services
-              <ArrowRight size={20} />
-            </button>
+          <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-8 sm:grid-cols-2">
+            {founders.map((founder) => (
+              <div
+                key={founder.name}
+                className="group flex flex-col items-center rounded-[2rem] bg-white p-8 shadow-sm ring-1 ring-[#1E2A4A]/5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#5C2A73]/5"
+              >
+                <div className="relative">
+                  <img
+                    src={founder.image}
+                    alt={`Portrait of ${founder.name}`}
+                    className="h-32 w-32 rounded-full object-cover ring-4 ring-[#F8F3EC] transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-black/10" />
+                </div>
 
-            <button className="rounded-xl border-2 border-white px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:bg-white hover:text-[#5C2A73]">
-              Contact Us
-            </button>
-          </div>
+                <h4 className="mt-6 text-2xl font-bold text-[#1E2A4A]">
+                  {founder.name}
+                </h4>
+                <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-[#E86A33]">
+                  {founder.role}
+                </p>
 
-          {/* Bottom Stats */}
-          <div className="mt-16 grid grid-cols-1 gap-8 border-t border-white/20 pt-10 text-white sm:grid-cols-3">
-            <div>
-              <h3 className="text-3xl font-bold">24/7</h3>
-              <p className="mt-2 text-gray-300">Veterinary Assistance</p>
-            </div>
-
-            <div>
-              <h3 className="text-3xl font-bold">AI</h3>
-              <p className="mt-2 text-gray-300">Smart Pet Care</p>
-            </div>
-
-            <div>
-              <h3 className="text-3xl font-bold">One</h3>
-              <p className="mt-2 text-gray-300">Complete Pet Platform</p>
-            </div>
+                <a
+                  href={founder.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Connect with ${founder.name} on LinkedIn`}
+                  className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#1E2A4A]/10 bg-transparent px-5 py-2.5 text-sm font-semibold text-[#5C2A73] transition-all duration-300 hover:border-[#5C2A73] hover:bg-[#5C2A73] hover:text-white focus-visible:ring-2 focus-visible:ring-[#5C2A73]/40"
+                >
+                  <FaLinkedin size={18} />
+                  Connect
+                </a>
+              </div>
+            ))}
           </div>
         </div>
+        
       </div>
     </section>
   );

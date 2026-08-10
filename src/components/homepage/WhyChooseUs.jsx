@@ -41,7 +41,7 @@ function WhyChooseUs() {
             WHY LOVOPET
           </span>
 
-          <h2 className="mt-6 text-4xl font-extrabold text-[#5C2A73] md:text-5xl">
+          <h2 className="mt-6 text-4xl font-extrabold text-[#1E2A4A] md:text-5xl">
             Why Pet Parents
             <br />
             Choose LovoPet
