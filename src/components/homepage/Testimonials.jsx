@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Quote, Star, ChevronDown, ChevronUp } from "lucide-react";
+import { useState, useRef } from "react";
+import { Quote, Star, ChevronDown, ChevronUp, ChevronRight, ChevronLeft } from "lucide-react";
 
 const testimonials = [
   {
@@ -48,8 +48,20 @@ const testimonials = [
 
 function Testimonials() {
   const [showAll, setShowAll] = useState(false);
+  const scrollContainerRef = useRef(null);
 
-  const visibleTestimonials = showAll ? testimonials : testimonials.slice(0, 3);
+  // We slice up to 4 items initially so the 4th item exists in the DOM for tablet mode
+  // On pure mobile (scroll view), we'll just show all of them if the user swipes, but 
+  // keeping the slice logic ensures the desktop/tablet grid remains perfect.
+  const visibleTestimonials = showAll ? testimonials : testimonials.slice(0, 4);
+
+  // Helper for optional mobile scroll buttons (if you want arrows on mobile)
+  const scroll = (direction) => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = direction === "left" ? -300 : 300;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   return (
     <section className="bg-[#FDF8F2] py-24">
@@ -72,52 +84,85 @@ function Testimonials() {
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {visibleTestimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="rounded-3xl border border-[#E5D8C9] bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
-            >
-              {/* Quote */}
-              <Quote size={36} className="text-[#E86A33]" />
+        {/* Cards Container */}
+        {/* 
+            MOBILE: flex, overflow-x-auto, snap-x for smooth scrolling. 
+            TABLET/DESKTOP: switches back to grid. 
+        */}
+        <div className="relative mt-16">
+          <div 
+            ref={scrollContainerRef}
+            className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto pb-8 md:grid md:gap-8 md:overflow-visible md:pb-0 md:grid-cols-2 xl:grid-cols-3 hide-scrollbar"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {/* On mobile, we map over ALL testimonials so they can scroll through them. 
+                On md+ screens, we map over visibleTestimonials based on the Show More button. */}
+            {(typeof window !== 'undefined' && window.innerWidth < 768 ? testimonials : visibleTestimonials).map((testimonial, index) => (
+              <div
+                key={testimonial.id}
+                // Mobile: w-[85vw] forces the cards to be almost full width but lets the next one peek out. snap-center locks it in.
+                // Tablet/Desktop: w-auto clears the fixed width and grid takes over.
+                className={`w-[85vw] shrink-0 snap-center rounded-3xl border border-[#E5D8C9] bg-white p-8 shadow-sm transition-all duration-300 md:w-auto md:shrink md:hover:-translate-y-2 md:hover:shadow-xl ${
+                  !showAll && index === 3 ? "hidden md:block xl:hidden" : ""
+                }`}
+              >
+                {/* Quote */}
+                <Quote size={36} className="text-[#E86A33]" />
 
-              {/* Stars */}
-              <div className="mt-6 flex gap-1">
-                {[...Array(5)].map((_, index) => (
-                  <Star
-                    key={index}
-                    size={18}
-                    className="fill-[#E86A33] text-[#E86A33]"
-                  />
-                ))}
-              </div>
-
-              {/* Review */}
-              <p className="mt-6 leading-8 text-gray-600">
-                "{testimonial.review}"
-              </p>
-
-              {/* User */}
-              <div className="mt-8 flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#5C2A73]/10 text-xl font-bold text-[#5C2A73]">
-                  {testimonial.name.charAt(0)}
+                {/* Stars */}
+                <div className="mt-6 flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={18}
+                      className="fill-[#E86A33] text-[#E86A33]"
+                    />
+                  ))}
                 </div>
 
-                <div>
-                  <h4 className="font-bold text-[#5C2A73]">
-                    {testimonial.name}
-                  </h4>
+                {/* Review */}
+                <p className="mt-6 leading-8 text-gray-600">
+                  "{testimonial.review}"
+                </p>
 
-                  <p className="text-sm text-gray-500">{testimonial.role}</p>
+                {/* User */}
+                <div className="mt-8 flex items-center gap-4">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#5C2A73]/10 text-xl font-bold text-[#5C2A73]">
+                    {testimonial.name.charAt(0)}
+                  </div>
+
+                  <div>
+                    <h4 className="font-bold text-[#5C2A73]">
+                      {testimonial.name}
+                    </h4>
+                    <p className="text-sm text-gray-500">{testimonial.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Optional Mobile Scroll Arrows (Hidden on md+) */}
+          <div className="mt-4 flex justify-center gap-4 md:hidden">
+             <button 
+                onClick={() => scroll("left")}
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-[#5C2A73]/10 text-[#5C2A73] transition-colors hover:bg-[#5C2A73]/20"
+                aria-label="Scroll left"
+              >
+                <ChevronLeft size={20} />
+             </button>
+             <button 
+                onClick={() => scroll("right")}
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-[#5C2A73]/10 text-[#5C2A73] transition-colors hover:bg-[#5C2A73]/20"
+                aria-label="Scroll right"
+              >
+                <ChevronRight size={20} />
+             </button>
+          </div>
         </div>
 
-        {/* Toggle button */}
-        <div className="mt-14 flex justify-center">
+        {/* Toggle button (Hidden on pure mobile because they can just scroll through them all) */}
+        <div className="mt-14 hidden justify-center md:flex">
           <button
             onClick={() => setShowAll((prev) => !prev)}
             className="flex items-center gap-2 rounded-full bg-[#5C2A73] px-8 py-3 font-semibold text-white transition-all duration-300 hover:bg-[#4A2260] hover:shadow-lg"
@@ -137,6 +182,13 @@ function Testimonials() {
           </button>
         </div>
       </div>
+      
+      {/* CSS to hide the scrollbar specifically for webkit browsers on mobile */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}} />
     </section>
   );
 }

@@ -29,7 +29,7 @@ function CTASection() {
             Meet our founders
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-[#1E2A4A]/70">
-            The passionate team behind LovoPet's mission to revolutionize pet care and bring everything your pet needs onto one platform.
+            The passionate team behind LovoPet's mission to revolutionize animal care and bring everything your animal needs onto one platform.
           </p>
 
           <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-8 sm:grid-cols-2">

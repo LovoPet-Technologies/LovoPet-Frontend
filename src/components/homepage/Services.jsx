@@ -19,7 +19,7 @@ const services = [
   {
     id: 2,
     icon: Pill,
-    title: "Pet Pharmacy",
+    title: "Animal Pharmacy",
     description:
       "Order genuine medicines and healthcare products for your pets with ease.",
   },
