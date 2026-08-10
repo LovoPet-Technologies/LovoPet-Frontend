@@ -10,17 +10,29 @@ function HomePage() {
   return (
     <>
       <main className="bg-[#FDF8F2]">
-        <Hero />
+        <section id="home">
+          <Hero />
+        </section>
 
-        <Services />
+        <section id="services" className="scroll-mt-16">
+          <Services />
+        </section>
 
-        <WhyChooseUs />
+        <section id="why-choose-us" className="scroll-mt-16">
+          <WhyChooseUs />
+        </section>
 
-        <HowItWorks />
+        <section id="how-it-works" className="scroll-mt-16">
+          <HowItWorks />
+        </section>
 
-        <Testimonials />
+        <section id="testimonials" className="scroll-mt-16">
+          <Testimonials />
+        </section>
 
-        <CTASection />
+        <section id="contact" className="scroll-mt-16">
+          <CTASection />
+        </section>
       </main>
 
       <Footer />
