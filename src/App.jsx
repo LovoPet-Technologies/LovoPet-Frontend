@@ -1,16 +1,17 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import NavBar from "./components/shared/navbar/NavBar";
 import HomePage from "./pages/HomePage";
-import Auth from "./pages/Auth";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
+  const location = useLocation();
   return (
     <>
-      <NavBar />
+      {location.pathname !== "/auth" && <NavBar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/auth" element={<AuthPage />} />
       </Routes>
     </>
   );

@@ -10,7 +10,7 @@ import { setAccessToken, setUser } from "../redux/slices/authSlice";
 
 const API = import.meta.env.VITE_API_URL;
 
-function Auth() {
+function AuthPage() {
   const [view, setView] = useState("login");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -99,7 +99,7 @@ function Auth() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 pt-13 bg-[#FFF8F0]">
+    <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-[#FFF8F0]">
       <div
         className="
           w-full max-w-4xl rounded-2xl overflow-hidden border border-[#F0E1CF] shadow-2xl shadow-orange-900/10 grid grid-cols-1 md:grid-cols-2"
@@ -110,15 +110,20 @@ function Auth() {
             hidden md:flex flex-col justify-center bg-gradient-to-br from-[#FFF1E1] to-[#FFE4D0] border-r border-[#F0E1CF] px-10 py-12"
         >
           <div className="space-y-10">
-            {/* LOGO */}
-            <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="Logo" className="h-9 w-9 object-contain" />
-              <img
-                src="/brandName.png"
-                alt="Brand"
-                className="h-6 object-contain"
-              />
-            </div>
+
+        {/* LOGO */}
+        <div className="flex items-center gap-3">
+          <img
+            src="/logo.png"
+            alt="Logo"
+            className="h-11 w-11 object-contain"
+          />
+          <img
+            src="/brandName.png"
+            alt="Brand"
+            className="h-8 object-contain"
+          />
+        </div>
 
             {/* TAGLINE */}
             <div className="space-y-3">
@@ -173,4 +178,4 @@ function Auth() {
   );
 }
 
-export default Auth;
+export default AuthPage;
