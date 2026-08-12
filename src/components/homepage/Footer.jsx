@@ -5,11 +5,13 @@ import {
   FaYoutube,
   FaEnvelope,
 } from "react-icons/fa";
+// Import the new X icon from fa6 (FontAwesome 6)
+import { FaXTwitter } from "react-icons/fa6";
 
 function Footer() {
   return (
     <footer className="bg-[#F8F3EC] border-t border-[#E5D8C9]">
-      <div className="mx-auto w-full px-6 py-14">
+      <div className="mx-auto w-full px-6 py-5">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div>
@@ -38,6 +40,16 @@ function Footer() {
                   className="text-[#5C2A73] transition-all duration-300 hover:scale-110 hover:text-[#E86A33]"
                 >
                   <FaInstagram size={22} />
+                </a>
+
+                {/* Added X (Twitter) Account Here */}
+                <a
+                  href="https://x.com/lovopetofficial"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#5C2A73] transition-all duration-300 hover:scale-110 hover:text-[#E86A33]"
+                >
+                  <FaXTwitter size={22} />
                 </a>
 
                 <a

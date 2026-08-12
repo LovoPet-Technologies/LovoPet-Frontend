@@ -55,7 +55,7 @@ const services = [
 
 function Services() {
   return (
-    <section className="bg-[#F8F3EC] py-24">
+    <section className="bg-[#F8F3EC] py-20">
       <div className="mx-auto max-w-7xl px-6">
         {/* Heading */}
         <div className="mx-auto max-w-3xl text-center">
