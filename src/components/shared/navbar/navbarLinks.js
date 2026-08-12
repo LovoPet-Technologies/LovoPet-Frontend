@@ -6,28 +6,28 @@ const navbarLinks = [
   },
   {
     id: 2,
-    name: "Our Services",
+    name: "Services",
     path: "#services",
   },
   {
     id: 3,
-    name: "Why Choose Us",
+    name: "Why Us",
     path: "#why-choose-us",
   },
   {
     id: 4,
-    name: "Our Process",
+    name: "Process",
     path: "#how-it-works",
   },
   {
     id: 5,
-    name: "Client Stories",
+    name: "Testimonials",
     path: "#testimonials",
   },
   {
     id: 6,
-    name: "Contact Us",
-    path: "#contact",
+    name: "Team",
+    path: "/team",
   },
 ];
 
