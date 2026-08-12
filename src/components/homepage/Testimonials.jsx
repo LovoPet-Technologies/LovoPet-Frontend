@@ -61,7 +61,7 @@ function Testimonials() {
   };
 
   return (
-    <section className="overflow-hidden bg-[#FDF8F2] py-16 lg:py-20 xl:py-24">
+    <section className="overflow-hidden bg-[#FDF8F2] py-5 lg:py-5 xl:py-5">
       <div className="relative mx-auto max-w-6xl px-6 md:px-10 lg:px-14 xl:max-w-7xl xl:px-16">
         {/* Heading */}
         <div className="mx-auto max-w-2xl text-center xl:max-w-3xl">
@@ -69,20 +69,20 @@ function Testimonials() {
             TESTIMONIALS
           </span>
 
-          <h2 className="mt-5 text-3xl font-extrabold text-[#5C2A73] lg:text-4xl xl:text-5xl">
+          <h2 className="mt-3 text-3xl font-extrabold text-[#5C2A73] lg:text-4xl xl:text-5xl">
             What Pet Parents
             <br />
             Say About LovoPet
           </h2>
 
-          <p className="mt-4 text-base leading-7 text-gray-600 lg:text-lg lg:leading-8">
+          <p className="mt-2 text-base leading-7 text-gray-600 lg:text-lg lg:leading-8">
             Hear from pet owners who have experienced convenient, reliable, and
             compassionate care through LovoPet.
           </p>
         </div>
 
         {/* Slider Container */}
-        <div className="relative mt-10 lg:mt-14">
+        <div className="relative mt-5 lg:mt-5">
           <button
             onClick={() => scroll("left")}
             className="absolute -left-2 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#5C2A73] shadow-md ring-1 ring-[#1E2A4A]/10 transition-all hover:scale-110 hover:bg-[#5C2A73] hover:text-white md:flex md:-left-4 lg:-left-6 lg:h-11 lg:w-11 xl:-left-8"

@@ -55,7 +55,7 @@ const services = [
 
 function Services() {
   return (
-    <section className="bg-[#F8F3EC] py-16 lg:py-20">
+    <section className="bg-[#F8F3EC] lg:py-5">
       <div className="mx-auto max-w-6xl xl:max-w-7xl px-6">
         <div className="mx-auto max-w-2xl xl:max-w-3xl text-center">
           <span className="rounded-full bg-[#E86A33]/10 px-3.5 py-1.5 text-xs lg:text-sm font-semibold text-[#E86A33]">
@@ -68,14 +68,14 @@ function Services() {
             All in One Place
           </h2>
 
-          <p className="mt-4 text-base lg:text-lg leading-7 lg:leading-8 text-gray-600">
+          <p className="mt-2 text-base lg:text-lg leading-7 lg:leading-8 text-gray-600">
             LovoPet brings together trusted veterinary care, pet shopping,
             AI-powered assistance, adoption, and wellness services in one
             seamless platform.
           </p>
         </div>
 
-        <div className="mt-10 lg:mt-14 grid gap-6 lg:gap-6 xl:gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-5 lg:mt-5 grid gap-6 lg:gap-6 xl:gap-8 md:grid-cols-2 xl:grid-cols-3">
           {services.map((service) => {
             const Icon = service.icon;
             return (

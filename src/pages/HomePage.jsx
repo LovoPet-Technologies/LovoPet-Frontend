@@ -29,8 +29,9 @@ function HomePage() {
           <Testimonials />
         </section>
       </main>
-
-      <Footer />
+      <section id="contact" className="scroll-mt-16">
+        <Footer />
+      </section>
     </>
   );
 }

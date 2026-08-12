@@ -31,7 +31,7 @@ const steps = [
 
 function HowItWorks() {
   return (
-    <section className="bg-[#F8F3EC] py-16 lg:py-20 xl:py-24">
+    <section className="bg-[#F8F3EC] py-5 lg:py-5 xl:py-5">
       <div className="mx-auto max-w-6xl xl:max-w-7xl px-6">
         <div className="mx-auto max-w-2xl xl:max-w-3xl text-center">
           <span className="rounded-full bg-[#E86A33]/10 px-3.5 py-1.5 text-[11px] lg:text-xs font-semibold uppercase tracking-widest text-[#E86A33]">
@@ -50,7 +50,7 @@ function HowItWorks() {
           </p>
         </div>
 
-        <div className="mt-14 lg:mt-16 flex flex-col items-center gap-10 lg:flex-row lg:items-stretch lg:justify-center lg:gap-6 xl:gap-10">
+        <div className="mt-5 lg:mt-8 flex flex-col items-center gap-10 lg:flex-row lg:items-stretch lg:justify-center lg:gap-6 xl:gap-10">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (

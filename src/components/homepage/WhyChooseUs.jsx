@@ -33,7 +33,7 @@ const features = [
 
 function WhyChooseUs() {
   return (
-    <section className="bg-[#FDF8F2] py-16 lg:py-20 xl:py-24">
+    <section className="bg-[#FDF8F2] py-16 lg:py-5 xl:py-5">
       <div className="mx-auto max-w-6xl xl:max-w-7xl px-6">
         <div className="mx-auto max-w-2xl xl:max-w-3xl text-center">
           <span className="rounded-full bg-[#5C2A73]/10 px-3.5 py-1.5 text-xs lg:text-sm font-semibold text-[#5C2A73]">
@@ -46,14 +46,14 @@ function WhyChooseUs() {
             Choose LovoPet
           </h2>
 
-          <p className="mt-4 text-base lg:text-lg leading-7 lg:leading-8 text-gray-600">
+          <p className="mt-2 text-base lg:text-lg leading-7 lg:leading-8 text-gray-600">
             We combine trusted veterinary expertise, intelligent technology, and
             a complete ecosystem of pet care services to deliver a seamless
             experience for every pet parent.
           </p>
         </div>
 
-        <div className="mt-10 lg:mt-14 grid gap-6 lg:gap-6 xl:gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-5 lg:mt-5 grid gap-6 lg:gap-6 xl:gap-8 md:grid-cols-2 lg:grid-cols-4">
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
