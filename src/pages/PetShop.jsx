@@ -1,9 +1,15 @@
-function PetShop() {
+import React from "react";
+
+import ShopLayout from "../components/layout/ShopLayout";
+import { petShopProducts, petShopCategories } from "../data/petShopData";
+
+export default function PetShop() {
   return (
-    <div className="py-15">
-      <h1 className="font-bold">This is Pet Shop page</h1>
-    </div>
+    <ShopLayout
+      heroTitle="Pet Shop"
+      heroSubtitle="Everything your pet needs, in one place."
+      categories={petShopCategories}
+      products={petShopProducts}
+    />
   );
 }
-
-export default PetShop;

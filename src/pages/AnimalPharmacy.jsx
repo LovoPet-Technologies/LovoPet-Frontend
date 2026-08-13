@@ -1,9 +1,14 @@
-function AnimalPharmacy() {
+import React from "react";
+import ShopLayout from "../components/layout/ShopLayout";
+import { pharmacyProducts, pharmacyCategories } from "../data/pharmacyData";
+
+export default function AnimalPharmacy() {
   return (
-    <div className="py-15">
-      <h1 className="font-bold">This is Animal Pharmacy page</h1>
-    </div>
+    <ShopLayout
+      heroTitle="Animal Pharmacy"
+      heroSubtitle="Trusted medications and veterinary care essentials."
+      categories={pharmacyCategories}
+      products={pharmacyProducts}
+    />
   );
 }
-
-export default AnimalPharmacy;
