@@ -32,7 +32,7 @@ export default function ShopLayout({
   });
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-sans">
+    <div className="min-h-screen bg-[#FAF6F0] text-[#3B1843] font-sans">
       <HeroBanner title={heroTitle} subtitle={heroSubtitle} />
       <CategorySection
         categories={categories}
@@ -48,15 +48,17 @@ export default function ShopLayout({
           setSortBy={setSortBy}
         />
 
-        {sortedProducts.length > 0 ? (
+        {sortedProducts.link > 0 || sortedProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {sortedProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 text-zinc-500">
-            <p className="text-lg">No products found matching your filters.</p>
+          <div className="text-center py-20 text-zinc-400">
+            <p className="text-lg font-medium">
+              No products found matching your filters.
+            </p>
           </div>
         )}
       </main>
