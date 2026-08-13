@@ -6,14 +6,14 @@ const founders = [
     role: "CEO & Founder",
     image: "/founder.jpeg",
     linkedin: "https://www.linkedin.com/in/saheli-ghosh-roy-b4a881381/",
-    bio: "Leads product and vision building the platform that connects pets, vets, rescuers, and communities under one roof.",
+    bio: "Animals deserve care, not chance. Through Lovopet, we are building technology that connects compassion with action-making animal healthcare, support, and welfare accessible for every pet and stray.",
   },
   {
     name: "Soumili Das",
     role: "Co-Founder",
     image: "/cofounder.png",
     linkedin: "https://www.linkedin.com/in/soumilidas01/",
-    bio: "Drives operations and partnerships turning the mission of accessible animal care into a working, growing platform.",
+    bio: "Animals deserve care, not chance. Through Lovopet, we are building technology that connects compassion with action-making animal healthcare, support, and welfare accessible for every pet and stray.",
   },
 ];
 
