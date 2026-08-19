@@ -3,7 +3,6 @@ import Services from "../components/homepage/Services";
 import WhyChooseUs from "../components/homepage/WhyChooseUs";
 import HowItWorks from "../components/homepage/HowItWorks";
 import Testimonials from "../components/homepage/Testimonials";
-import CTASection from "../components/homepage/CTASection";
 import Footer from "../components/homepage/Footer";
 
 function HomePage() {
@@ -29,13 +28,10 @@ function HomePage() {
         <section id="testimonials" className="scroll-mt-16">
           <Testimonials />
         </section>
-
-        <section id="contact" className="scroll-mt-16">
-          <CTASection />
-        </section>
       </main>
-
-      <Footer />
+      <section id="contact" className="scroll-mt-16">
+        <Footer />
+      </section>
     </>
   );
 }

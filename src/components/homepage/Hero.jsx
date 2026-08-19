@@ -1,157 +1,207 @@
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  Stethoscope,
+  Pill,
+  ShoppingBag,
+  Sparkles,
   PawPrint,
-  Heart,
-  CalendarDays,
-  ShieldCheck,
 } from "lucide-react";
 
+const slides = [
+  {
+    id: "consultation",
+    icon: Stethoscope,
+    tag: "Talk to a vet today",
+    title: "Online Vet Consultation",
+    highlight: "Consultation",
+    description:
+      "Connect with licensed veterinarians from home for dogs, cats, birds, farm animals, and exotics diagnoses, prescriptions, and follow-ups without the waiting room.",
+    image:
+      "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?q=80&w=1600&auto=format&fit=crop",
+    ctaLabel: "Book a consultation",
+    ctaPath: "/services/consultation",
+  },
+  {
+    id: "pharmacy",
+    icon: Pill,
+    tag: "Prescriptions, delivered",
+    title: "Animal Pharmacy",
+    highlight: "Pharmacy",
+    description:
+      "Order vet-verified medication, supplements, and parasite prevention for any animal in your care from livestock to household pets, refills tracked and dispatched fast.",
+    image:
+      "https://images.unsplash.com/photo-1584308972272-9e4e7685e80f?q=80&w=1600&auto=format&fit=crop",
+    ctaLabel: "Visit the pharmacy",
+    ctaPath: "/services/pharmacy",
+  },
+  {
+    id: "petshop",
+    icon: ShoppingBag,
+    tag: "Everything they need",
+    title: "Pet & Animal Shop",
+    highlight: "Shop",
+    description:
+      "Food, bedding, enclosures, grooming tools, and toys for pets, working animals, and everything in between curated by our care team, not just algorithms.",
+    image:
+      "https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?q=80&w=1600&auto=format&fit=crop",
+    ctaLabel: "Shop now",
+    ctaPath: "/shop",
+  },
+  {
+    id: "ai-assistant",
+    icon: Sparkles,
+    tag: "In beta",
+    title: "AI Health Assistant",
+    highlight: "Health Assistant",
+    description:
+      "Describe a symptom and get an instant triage for any species know when it's fine to wait and when it's time to see a vet, backed by real clinical guidelines.",
+    image:
+      "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=1600&auto=format&fit=crop",
+    ctaLabel: "Try the assistant",
+    ctaPath: "/services/ai-assistant",
+  },
+  {
+    id: "adoption",
+    icon: PawPrint,
+    tag: "Find a companion",
+    title: "Pet Adoption",
+    highlight: "Adoption",
+    description:
+      "Browse verified shelters and rescues for dogs, cats, and other animals waiting for a home. Every listing includes health records and temperament notes.",
+    image:
+      "https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=1600&auto=format&fit=crop",
+    ctaLabel: "Start adopting",
+    ctaPath: "/adoption",
+  },
+];
+
+const AUTOPLAY_MS = 6000;
+
 function Hero() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const navigate = useNavigate();
+  const timerRef = useRef(null);
+
+  const goTo = useCallback((index) => {
+    setActive((index + slides.length) % slides.length);
+  }, []);
+
+  const next = useCallback(() => goTo(active + 1), [active, goTo]);
+  const prev = useCallback(() => goTo(active - 1), [active, goTo]);
+
+  useEffect(() => {
+    if (paused) return undefined;
+
+    timerRef.current = setInterval(() => {
+      setActive((prevIndex) => (prevIndex + 1) % slides.length);
+    }, AUTOPLAY_MS);
+
+    return () => clearInterval(timerRef.current);
+  }, [paused]);
+
+  const slide = slides[active];
+  const Icon = slide.icon;
+  const titlePrefix = slide.title.replace(slide.highlight, "").trim();
+
   return (
-    <section className="relative overflow-hidden bg-[#FDF8F2] pt-16">
-      {/* Background gradients */}
-      <div className="absolute -left-32 -top-32 h-80 w-80 rounded-full bg-[#E86A33]/8 blur-3xl" />
-      <div className="absolute -right-32 top-32 h-96 w-96 rounded-full bg-[#F4A96B]/10 blur-3xl" />
+    <section
+      className="relative w-full overflow-hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="relative h-[560px] w-full sm:h-[620px] lg:h-[720px]">
+        {/* Background images, cross-fading */}
+        {slides.map((s, i) => (
+          <img
+            key={s.id}
+            src={s.image}
+            alt={s.title}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
+              i === active ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
 
-      {/* Grid Background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            background:
-              "radial-gradient(circle at 30% 20%, #FDF3E7 0%, transparent 65%)",
-          }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.05]"
-          style={{
-            backgroundImage:
-              "linear-gradient(#5C2A73 1px, transparent 1px), linear-gradient(to right, #5C2A73 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-            maskImage:
-              "radial-gradient(ellipse at center, black 40%, transparent 90%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse at center, black 40%, transparent 90%)",
-          }}
-        />
-      </div>
+        {/* Blend overlays: darken for text legibility + brand tint */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-[#5C2A73]/10 mix-blend-multiply" />
 
-      {/* Main Container - Removed min-h-[calc(100vh-4rem)] to fix the huge gap */}
-      <div className="relative mx-auto flex max-w-7xl flex-col items-center justify-between gap-12 px-6 py-12 lg:flex-row lg:gap-16 lg:py-20">
-        {/* Left Content (Text & Buttons) */}
-        <div className="flex w-full max-w-2xl flex-col items-center text-center lg:w-1/2 lg:items-start lg:text-left">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#E5D8C9] bg-white px-4 py-2 text-xs font-semibold text-[#5C2A73] shadow-sm sm:text-sm">
-            <PawPrint size={16} className="text-[#E86A33]" />
-            AI health assistant now in beta
-          </div>
-
-          <h1 className="text-4xl font-extrabold leading-tight text-[#1E2A4A] sm:text-5xl lg:text-6xl xl:text-7xl">
-            Complete Care
-            <br />
-            For Your Pet,
-            <br />
-            <span className="text-[#E86A33]">In One Platform.</span>
-          </h1>
-
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-gray-600 sm:mt-8 sm:text-lg lg:text-xl">
-            "Reimagining Animal Care"
-          </p>
-
-          <div className="mt-8 flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-center lg:mt-10 lg:justify-start">
-            <button className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#E86A33] px-8 py-3.5 text-base font-bold text-white shadow-lg shadow-[#E86A33]/30 transition-all duration-300 hover:scale-105 hover:bg-[#5C2A73] sm:w-auto sm:py-4 sm:text-lg">
-              Book a consultation
-              <ArrowRight size={20} />
-            </button>
-            <button className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-[#E5D8C9] bg-white px-8 py-3.5 text-base font-bold text-[#1E2A4A] transition-all duration-300 hover:border-[#5C2A73] hover:text-[#5C2A73] sm:w-auto sm:py-4 sm:text-lg">
-              Explore services
-            </button>
-          </div>
-
-          {/* Stats */}
-          <div className="mt-12 grid w-full grid-cols-3 gap-4 border-t border-[#E5D8C9] pt-8 sm:gap-6 lg:mt-14 lg:w-auto">
-            <div>
-              <h3 className="text-2xl font-bold text-[#5C2A73] sm:text-3xl">
-                48k+
-              </h3>
-              <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-gray-500 sm:text-xs">
-                Pets Cared For
-              </p>
+        {/* Content */}
+        <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-center px-6 lg:px-10">
+          <div className="max-w-2xl">
+            <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md sm:text-sm">
+              <Icon size={16} className="text-[#F4A96B]" />
+              {slide.tag}
             </div>
-            <div>
-              <h3 className="text-2xl font-bold text-[#5C2A73] sm:text-3xl">
-                180+
-              </h3>
-              <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-gray-500 sm:text-xs">
-                Certified Vets
-              </p>
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-[#5C2A73] sm:text-3xl">
-                4.9/5
-              </h3>
-              <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-gray-500 sm:text-xs">
-                Owner Rating
-              </p>
+
+            <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
+              {titlePrefix && (
+                <>
+                  {titlePrefix}
+                  <br />
+                </>
+              )}
+              <span className="text-[#F4A96B]">{slide.highlight}</span>
+            </h1>
+
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/85 sm:mt-6 sm:text-base lg:text-lg">
+              {slide.description}
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <button
+                onClick={() => navigate(slide.ctaPath)}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E86A33] px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-black/30 transition-all duration-300 hover:scale-105 hover:bg-white hover:text-[#5C2A73] sm:text-base"
+              >
+                {slide.ctaLabel}
+                <ArrowRight size={18} />
+              </button>
+              <button
+                onClick={() => navigate("/services")}
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/40 bg-white/10 px-7 py-3.5 text-sm font-bold text-white backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white/20 sm:text-base"
+              >
+                Explore all services
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Right Side - Image & Floating Badges */}
-        <div className="relative mt-8 flex w-full max-w-lg justify-center lg:mt-0 lg:w-1/2">
-          {/* Main Image Container - Scaled down for mobile, full size on desktop */}
-          <div className="relative h-[450px] w-[320px] rounded-[2rem] bg-gradient-to-br from-[#f8f1e6] to-[#e6d9ce] shadow-2xl overflow-hidden ring-4 ring-white sm:h-[550px] sm:w-[400px] lg:h-[600px] lg:w-[450px] lg:rounded-[2.5rem]">
-            <img
-              src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=1000&auto=format&fit=crop"
-              alt="Dog, cat and farm animals together"
-              className="h-full w-full object-cover opacity-90"
+        {/* Prev / Next arrows */}
+        <button
+          onClick={prev}
+          aria-label="Previous service"
+          className="absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-md transition hover:bg-white/30 sm:left-6 sm:h-12 sm:w-12"
+        >
+          <ChevronLeft size={22} />
+        </button>
+        <button
+          onClick={next}
+          aria-label="Next service"
+          className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-md transition hover:bg-white/30 sm:right-6 sm:h-12 sm:w-12"
+        >
+          <ChevronRight size={22} />
+        </button>
+
+        {/* Dots + slide labels */}
+        <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2 sm:bottom-8">
+          {slides.map((s, i) => (
+            <button
+              key={s.id}
+              onClick={() => goTo(i)}
+              aria-label={`Go to ${s.title}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === active
+                  ? "w-8 bg-[#E86A33]"
+                  : "w-2 bg-white/50 hover:bg-white/80"
+              }`}
             />
-            <div className="absolute inset-0 bg-[#5C2A73]/5 mix-blend-multiply"></div>
-          </div>
-
-          {/* Floating Card 1: Loved by owners */}
-          <div className="absolute -left-4 top-16 flex items-center gap-2 rounded-2xl bg-white p-3 shadow-xl ring-1 ring-black/5 sm:-left-8 sm:top-24 sm:gap-3 sm:p-4">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E86A33]/15 text-[#E86A33] sm:h-10 sm:w-10">
-              <Heart size={18} className="sm:h-5 sm:w-5" />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-[#1E2A4A] sm:text-sm">
-                Loved by every pet
-              </p>
-              <p className="text-[10px] text-gray-500 sm:text-xs">
-                Cats, dogs & more
-              </p>
-            </div>
-          </div>
-
-          {/* Floating Card 2: Vaccination Due */}
-          <div className="absolute -right-4 top-2/3 flex items-center gap-2 rounded-2xl bg-white p-3 shadow-xl ring-1 ring-black/5 sm:-right-12 sm:gap-3 sm:p-4">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#5C2A73]/10 text-[#5C2A73] sm:h-10 sm:w-10">
-              <CalendarDays size={18} className="sm:h-5 sm:w-5" />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-[#1E2A4A] sm:text-sm">
-                Vaccination due
-              </p>
-              <p className="text-[10px] text-gray-500 sm:text-xs">
-                Rabies · 12 Aug
-              </p>
-            </div>
-          </div>
-
-          {/* Floating Card 3: Prescription Verified */}
-          <div className="absolute -bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-2xl bg-white p-3 shadow-xl ring-1 ring-black/5 sm:-bottom-6 sm:gap-3 sm:p-4">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 text-green-600 sm:h-10 sm:w-10">
-              <ShieldCheck size={18} className="sm:h-5 sm:w-5" />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-[#1E2A4A] sm:text-sm">
-                Prescription verified
-              </p>
-              <p className="text-[10px] text-gray-500 sm:text-xs">
-                Dispatched today
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
