@@ -18,8 +18,6 @@ function App() {
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/pet-shop" element={<PetShop />} />
         <Route path="/animal-pharmacy" element={<AnimalPharmacy />} />
-
-
       </Routes>
     </>
   );
