@@ -56,7 +56,7 @@ function AuthPage() {
     }
   };
 
-  const registerUser = async (username, email, password) => {
+  const registerUser = async (email, role, password) => {
     try {
       const res = await fetch(`${API}/auth/register/`, {
         method: "POST",
@@ -65,8 +65,8 @@ function AuthPage() {
         },
         credentials: "include",
         body: JSON.stringify({
-          username: username.trim(),
           email: email.trim().toLowerCase(),
+          role: role.trim(),
           password,
         }),
       });
@@ -74,24 +74,12 @@ function AuthPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        let errorMessage = "Registration failed";
-
-        if (data.message) {
-          errorMessage = data.message;
-        }
-
-        // DRF serializer error handling
-        else if (data.username) {
-          errorMessage = data.username[0];
-        } else if (data.email) {
-          errorMessage = data.email[0];
-        } else if (data.password) {
-          errorMessage = data.password[0];
-        }
-
-        throw new Error(errorMessage);
+        throw new Error(data.message || "Registration failed");
       }
-      navigate("/checkEmail", { state: { email } });
+
+      navigate("/checkEmail", {
+        state: { email },
+      });
     } catch (error) {
       console.error(error);
       throw error;
@@ -110,20 +98,19 @@ function AuthPage() {
             hidden md:flex flex-col justify-center bg-gradient-to-br from-[#FFF1E1] to-[#FFE4D0] border-r border-[#F0E1CF] px-10 py-12"
         >
           <div className="space-y-10">
-
-        {/* LOGO */}
-        <div className="flex items-center gap-3">
-          <img
-            src="/logo.png"
-            alt="Logo"
-            className="h-11 w-11 object-contain"
-          />
-          <img
-            src="/brandName.png"
-            alt="Brand"
-            className="h-8 object-contain"
-          />
-        </div>
+            {/* LOGO */}
+            <div className="flex items-center gap-3">
+              <img
+                src="/logo.png"
+                alt="Logo"
+                className="h-11 w-11 object-contain"
+              />
+              <img
+                src="/brandName.png"
+                alt="Brand"
+                className="h-8 object-contain"
+              />
+            </div>
 
             {/* TAGLINE */}
             <div className="space-y-3">

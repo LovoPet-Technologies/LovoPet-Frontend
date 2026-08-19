@@ -1,4 +1,3 @@
-// src/components/auth/Register.jsx
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import OAuth from "./OAuth";
@@ -35,7 +34,7 @@ function PasswordInput({ name, value, onChange, placeholder }) {
 function Register({ onLogin, onRegister }) {
   const [formData, setFormData] = useState({
     email: "",
-    role: "", // Replaced username with role
+    role: "",
     password: "",
     confirmPassword: "",
   });
@@ -71,7 +70,6 @@ function Register({ onLogin, onRegister }) {
     setLoading(true);
 
     try {
-      // Passing email, role, and password to the parent handler
       await onRegister(email, role, formData.password);
     } catch (err) {
       setError(err?.message || "Unable to create account");
@@ -107,7 +105,7 @@ function Register({ onLogin, onRegister }) {
         />
 
         {/* New Role Dropdown */}
-       <select
+        <select
           name="role"
           value={formData.role}
           onChange={handleChange}
@@ -133,11 +131,21 @@ function Register({ onLogin, onRegister }) {
           <option value="" disabled className="text-[#B8AB9B] bg-white">
             Which best describes you?
           </option>
-          <option value="Pet Parent" className="text-[#1E2A4A] bg-white py-1">Pet Parent</option>
-          <option value="Animal Lover" className="text-[#1E2A4A] bg-white py-1">Animal Lover</option>
-          <option value="NGO / Rescue" className="text-[#1E2A4A] bg-white py-1">NGO / Rescue</option>
-          <option value="Veterinarian" className="text-[#1E2A4A] bg-white py-1">Veterinarian</option>
-          <option value="Volunteer" className="text-[#1E2A4A] bg-white py-1">Volunteer</option>
+          <option value="pet_parent" className="text-[#1E2A4A] bg-white py-1">
+            Pet Parent
+          </option>
+          <option value="animal_lover" className="text-[#1E2A4A] bg-white py-1">
+            Animal Lover
+          </option>
+          <option value="ngo_rescue" className="text-[#1E2A4A] bg-white py-1">
+            NGO / Rescue
+          </option>
+          <option value="veterinarian" className="text-[#1E2A4A] bg-white py-1">
+            Veterinarian
+          </option>
+          <option value="volunteer" className="text-[#1E2A4A] bg-white py-1">
+            Volunteer
+          </option>
         </select>
 
         <PasswordInput
