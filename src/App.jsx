@@ -7,6 +7,7 @@ import AuthPage from "./pages/AuthPage";
 import CheckEmail from "./pages/CheckEmail";
 import PetShop from "./pages/PetShop";
 import AnimalPharmacy from "./pages/AnimalPharmacy";
+import VetLayout from "./components/layout/VetLayout";
 
 function App() {
   const location = useLocation();
@@ -20,6 +21,8 @@ function App() {
         <Route path="/checkEmail" element={<CheckEmail />} />
         <Route path="/pet-shop" element={<PetShop />} />
         <Route path="/animal-pharmacy" element={<AnimalPharmacy />} />
+        <Route path="/animal-pharmacy" element={<AnimalPharmacy />} />
+        <Route path="/vet" element={<VetLayout />} />
       </Routes>
     </>
   );
