@@ -46,7 +46,6 @@ const slides = [
     highlight: "Shop",
     description:
       "Quality feed, grooming tools, enclosures, and essentials for farm livestock, birds, and domestic pets curated by experts.",
-    // Bright image: Vibrant, daylight shot of dogs and general animal care
     image:
       "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1920&h=1080&auto=format&fit=crop",
     ctaLabel: "Shop now",
@@ -60,7 +59,6 @@ const slides = [
     highlight: "Health Assistant",
     description:
       "Describe symptoms for any animal—from parrots and reptiles to dogs and cattle—and receive instant clinical triage advice.",
-    // Full, uncropped, bright bird photo in natural light
     image:
       "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?q=80&w=1920&h=1080&auto=format&fit=crop",
     ctaLabel: "Try the assistant",
@@ -74,7 +72,6 @@ const slides = [
     highlight: "Adoption",
     description:
       "Browse verified rescues and shelters for dogs, cats, farm animals, and rescued livestock looking for a safe home.",
-    // Bright image: Friendly farm/sanctuary animal in bright sunlight
     image:
       "https://images.unsplash.com/photo-1533318087102-b3ad366ed041?q=80&w=1920&h=1080&auto=format&fit=crop",
     ctaLabel: "Start adopting",
@@ -87,16 +84,50 @@ const AUTOPLAY_MS = 6000;
 function Hero() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
   const navigate = useNavigate();
   const timerRef = useRef(null);
 
   const goTo = useCallback((index) => {
+    // Infinite loop indexing modulo logic
     setActive((index + slides.length) % slides.length);
   }, []);
 
   const next = useCallback(() => goTo(active + 1), [active, goTo]);
   const prev = useCallback(() => goTo(active - 1), [active, goTo]);
 
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e) => {
+    setPaused(true);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    setPaused(false);
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      next();
+    } else if (isRightSwipe) {
+      prev();
+    }
+
+    // Reset touch coordinates
+    setTouchStart(0);
+    setTouchEnd(0);
+  };
+
+  // Autoplay Effect (infinite loop)
   useEffect(() => {
     if (paused) return undefined;
 
@@ -113,9 +144,12 @@ function Hero() {
 
   return (
     <section
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden select-none"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="relative h-[560px] w-full sm:h-[620px] lg:h-[720px]">
         {/* Background images */}
@@ -130,7 +164,7 @@ function Hero() {
           />
         ))}
 
-        {/* Subtle left-side dark gradient only where text sits to maintain overall image brightness */}
+        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
 
         {/* Main Content */}
@@ -173,18 +207,18 @@ function Hero() {
           </div>
         </div>
 
-        {/* Navigation Arrows */}
+        {/* Navigation Arrows: Hidden on mobile (hidden), visible on desktop (sm:flex) */}
         <button
           onClick={prev}
           aria-label="Previous slide"
-          className="absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-md transition hover:bg-black/50 sm:left-6 sm:h-12 sm:w-12"
+          className="hidden sm:flex absolute left-4 top-1/2 z-10 h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-md transition hover:bg-black/50 sm:left-6 sm:h-12 sm:w-12"
         >
           <ChevronLeft size={22} />
         </button>
         <button
           onClick={next}
           aria-label="Next slide"
-          className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-md transition hover:bg-black/50 sm:right-6 sm:h-12 sm:w-12"
+          className="hidden sm:flex absolute right-4 top-1/2 z-10 h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-md transition hover:bg-black/50 sm:right-6 sm:h-12 sm:w-12"
         >
           <ChevronRight size={22} />
         </button>
