@@ -10,8 +10,8 @@ function NavBar() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Retrieve user from Redux store (adjust state.auth.user path to match your store)
-  const { user } = useSelector((state) => state.auth || {});
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
 
   const isHomePage = location.pathname === "/";
   const currentNavLinks = isHomePage ? homeNavbarLinks : appNavbarLinks;

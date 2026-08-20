@@ -4,7 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import OAuth from "./OAuth";
 
 function Login({ onLogin, onRegister, onForgot }) {
-  const [formData, setFormData] = useState({ identifier: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ function Login({ onLogin, onRegister, onForgot }) {
     setLoading(true);
 
     try {
-      await onLogin(formData.identifier, formData.password);
+      await onLogin(formData.email, formData.password);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -27,17 +27,12 @@ function Login({ onLogin, onRegister, onForgot }) {
     }
   };
 
-  // Detect whether user is typing an email or username
-  const isEmail = formData.identifier.includes("@");
-
   return (
     <div className="space-y-5">
       {/* HEADER */}
       <div>
         <h2 className="text-2xl font-bold text-[#1E2A4A]">Welcome back</h2>
-        <p className="mt-1 text-xs text-[#6B7280]">
-          Sign in to continue
-        </p>
+        <p className="mt-1 text-xs text-[#6B7280]">Sign in to continue</p>
       </div>
 
       {error && (
@@ -59,23 +54,17 @@ function Login({ onLogin, onRegister, onForgot }) {
       {/* FORM */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <div className="flex items-center justify-between mb-1.5">
-            <label className="text-xs text-[#1E2A4A]">Email or username</label>
-
-            {formData.identifier.length > 0 && (
-              <span className="text-xs text-[#9A8B7A]">
-                {isEmail ? "signing in with email" : "signing in with username"}
-              </span>
-            )}
-          </div>
+          <label className="block text-xs text-[#1E2A4A] mb-1.5">
+            Email Address
+          </label>
           <input
-            type="text"
-            name="identifier"
-            value={formData.identifier}
+            type="email"
+            name="email"
+            value={formData.email}
             onChange={handleChange}
-            placeholder="username or email"
+            placeholder="you@example.com"
             required
-            autoComplete="username"
+            autoComplete="email"
             className="w-full bg-[#FFF8F0] border border-[#F0E1CF] rounded-xl px-3 py-2.5 text-sm text-[#1E2A4A] placeholder:text-[#B8AB9B] focus:outline-none focus:ring-2 focus:ring-[#F97316]/30 focus:border-[#F97316]/60 transition"
           />
         </div>

@@ -14,8 +14,9 @@ import {
   Bell,
   LogOut,
 } from "lucide-react";
-// Replace with your actual logout Redux action if available:
-// import { logout } from "../redux/authSlice";
+
+// Import your clearUser action from your Redux auth slice
+import { clearUser } from "../../../redux/slices/authSlice";
 
 export default function UserDropdown({ user }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,10 +35,20 @@ export default function UserDropdown({ user }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleLogout = () => {
-    // dispatch(logout()); // Trigger Redux logout action
-    setIsOpen(false);
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:5000/auth/logout", {
+        method: "POST",
+        credentials: "include", // Ensures backend receiving/clearing refresh token cookies
+      });
+    } catch (err) {
+      console.error("Logout request failed:", err);
+    } finally {
+      // Clear Redux user state and reset navigation regardless of network outcome
+      dispatch(clearUser());
+      setIsOpen(false);
+      navigate("/");
+    }
   };
 
   const menuItems = [
