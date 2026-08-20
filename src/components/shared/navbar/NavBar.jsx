@@ -1,35 +1,43 @@
 import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Menu, X, LogIn } from "lucide-react";
-import navbarLinks from "./navbarLinks";
+import { homeNavbarLinks, appNavbarLinks } from "./navbarLinks";
+import UserDropdown from "./UserDropdown";
 
 function NavBar() {
   const [open, setOpen] = useState(false);
-  // Default to whatever the actual URL is on page load
-  const [activePath, setActivePath] = useState(window.location.pathname);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  // Listen to scroll to highlight the active link on the homepage
+  // Retrieve user from Redux store (adjust state.auth.user path to match your store)
+  const { user } = useSelector((state) => state.auth || {});
+
+  const isHomePage = location.pathname === "/";
+  const currentNavLinks = isHomePage ? homeNavbarLinks : appNavbarLinks;
+
+  const [activePath, setActivePath] = useState(location.pathname);
+
+  // Sync scroll spy and active state
   useEffect(() => {
-    const handleScroll = () => {
-      // 1. If we are on a separate page (like /team), keep the underline there and STOP here.
-      if (window.location.pathname !== "/") {
-        setActivePath(window.location.pathname);
-        return;
-      }
+    if (!isHomePage) {
+      setActivePath(location.pathname);
+      return;
+    }
 
-      // 2. If we are on the Homepage, run the scroll-spy logic for hash links
-      const sections = navbarLinks
+    const handleScroll = () => {
+      const sections = homeNavbarLinks
         .map((link) =>
           link.path.startsWith("#") ? link.path.substring(1) : null,
         )
         .filter(Boolean);
 
-      let currentActive = "/"; // Default to home
+      let currentActive = "/";
 
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // If the top of the section is near the top of the screen
           if (rect.top <= 100 && rect.bottom >= 100) {
             currentActive = `#${section}`;
             break;
@@ -37,7 +45,6 @@ function NavBar() {
         }
       }
 
-      // If we are at the very top of the homepage, force "Home" to be active
       if (window.scrollY < 50) {
         currentActive = "/";
       }
@@ -45,44 +52,37 @@ function NavBar() {
       setActivePath(currentActive);
     };
 
-    // Run once on load to catch the immediate active state
     handleScroll();
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage, location.pathname]);
 
-  // Smooth scrolling function
   const handleNavClick = (e, path) => {
-    // If it's a hash link AND we are on the homepage, scroll smoothly
     if (path.startsWith("#")) {
-      if (window.location.pathname === "/") {
+      if (isHomePage) {
         e.preventDefault();
         const targetElement = document.querySelector(path);
-
         if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
           setActivePath(path);
         }
-      }
-      // Note: If we are on /team and click a hash link, we let the browser
-      // naturally navigate back to the homepage and jump to the hash.
-    } else if (path === "/") {
-      // If clicking "Home" while already on the home page, just scroll up
-      if (window.location.pathname === "/") {
+      } else {
         e.preventDefault();
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-        setActivePath("/");
+        navigate(`/${path}`);
       }
+    } else if (path === "/") {
+      if (isHomePage) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setActivePath("/");
+      } else {
+        e.preventDefault();
+        navigate("/");
+      }
+    } else {
+      e.preventDefault();
+      navigate(path);
     }
-    // For standard paths like "/team", we don't preventDefault.
-    // We just let the browser navigate naturally!
 
     setOpen(false);
   };
@@ -90,12 +90,12 @@ function NavBar() {
   return (
     <nav className="fixed top-0 z-50 w-full border-b border-[#5C2A73]/10 bg-[#FDF8F2]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Brand Logo */}
         <a
           href="/"
           onClick={(e) => handleNavClick(e, "/")}
           className="flex shrink-0 items-center gap-2"
         >
-          {/* Logo */}
           <img
             src="/logo.png"
             alt="LovoPet Logo"
@@ -110,23 +110,13 @@ function NavBar() {
 
         {/* Desktop links */}
         <ul className="hidden items-center gap-6 lg:flex xl:gap-8">
-          {navbarLinks.map((link) => {
+          {currentNavLinks.map((link) => {
             const isActive = activePath === link.path;
 
             return (
               <li key={link.id}>
-                {/* 
-                  NOTE: If a user is on /team and clicks #services, the link.path is #services.
-                  To ensure it routes back to the homepage from another page, 
-                  we dynamically prepend a "/" to hash links if we aren't currently on the homepage.
-                */}
                 <a
-                  href={
-                    window.location.pathname !== "/" &&
-                    link.path.startsWith("#")
-                      ? `/${link.path}`
-                      : link.path
-                  }
+                  href={link.path}
                   onClick={(e) => handleNavClick(e, link.path)}
                   className={`relative inline-block pb-1 text-[13px] font-medium tracking-wide transition-colors duration-300 xl:text-sm after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-[#E86A33] after:transition-transform after:duration-300 ${
                     isActive
@@ -141,45 +131,47 @@ function NavBar() {
           })}
         </ul>
 
-        {/* Desktop Button */}
+        {/* Desktop Action Area: Render UserDropdown if authenticated, else show Login Button */}
         <div className="hidden lg:block">
-          <a
-            href="/auth"
-            className="inline-flex items-center gap-2 rounded-full bg-[#E86A33] px-5 py-2.5 text-[13px] font-semibold tracking-wide text-white shadow-sm shadow-[#E86A33]/30 transition-colors hover:bg-[#5C2A73] xl:text-sm"
-          >
-            <LogIn size={16} />
-            Login / Sign Up
-          </a>
+          {user ? (
+            <UserDropdown user={user} />
+          ) : (
+            <button
+              onClick={() => navigate("/auth")}
+              className="inline-flex items-center gap-2 rounded-full bg-[#E86A33] px-5 py-2.5 text-[13px] font-semibold tracking-wide text-white shadow-sm shadow-[#E86A33]/30 transition-colors hover:bg-[#5C2A73] xl:text-sm"
+            >
+              <LogIn size={16} />
+              Login / Sign Up
+            </button>
+          )}
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          className="inline-flex items-center justify-center rounded-md p-2 text-[#5C2A73] hover:bg-[#5C2A73]/10 lg:hidden"
-          aria-label="Toggle menu"
-          aria-expanded={open}
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile menu toggle & user quick access */}
+        <div className="flex items-center gap-3 lg:hidden">
+          {user && <UserDropdown user={user} />}
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className="inline-flex items-center justify-center rounded-md p-2 text-[#5C2A73] hover:bg-[#5C2A73]/10"
+            aria-label="Toggle menu"
+            aria-expanded={open}
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Dropdown */}
       {open && (
         <div className="border-t border-[#5C2A73]/10 bg-[#FDF8F2] lg:hidden">
           <ul className="space-y-1 px-4 py-3">
-            {navbarLinks.map((link) => {
+            {currentNavLinks.map((link) => {
               const isActive = activePath === link.path;
 
               return (
                 <li key={link.id}>
                   <a
-                    href={
-                      window.location.pathname !== "/" &&
-                      link.path.startsWith("#")
-                        ? `/${link.path}`
-                        : link.path
-                    }
+                    href={link.path}
                     onClick={(e) => handleNavClick(e, link.path)}
                     className={`block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                       isActive
@@ -193,16 +185,21 @@ function NavBar() {
               );
             })}
           </ul>
-          <div className="px-4 pb-4 pt-2">
-            <a
-              href="/auth"
-              onClick={() => setOpen(false)}
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#E86A33] px-4 py-3 text-center text-sm font-semibold text-white hover:bg-[#5C2A73]"
-            >
-              <LogIn size={18} />
-              Login / Sign Up
-            </a>
-          </div>
+
+          {!user && (
+            <div className="px-4 pb-4 pt-2">
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  navigate("/auth");
+                }}
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#E86A33] px-4 py-3 text-center text-sm font-semibold text-white hover:bg-[#5C2A73]"
+              >
+                <LogIn size={18} />
+                Login / Sign Up
+              </button>
+            </div>
+          )}
         </div>
       )}
     </nav>
