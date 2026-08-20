@@ -4,6 +4,7 @@ export const petShopCategories = [
   "Cat Food",
   "Toys",
   "Accessories",
+  "Livestock Feed",
 ];
 
 export const petShopProducts = [
@@ -20,7 +21,8 @@ export const petShopProducts = [
     brand: "PetBite",
     image:
       "https://images.unsplash.com/photo-1589924691106-0d0b0b5f1b8d?auto=format&fit=crop&w=600&q=80",
-    description: "Premium complete nutrition dog food with real chicken.",
+    description:
+      "Premium complete nutrition kibble formulated with real chicken.",
   },
   {
     id: 2,
@@ -34,8 +36,9 @@ export const petShopProducts = [
     stock: 43,
     brand: "MeowMeal",
     image:
-      "https://images.unsplash.com/photo-1589924691106-0d0b0b5f1b8d?auto=format&fit=crop&w=600&q=80",
-    description: "Balanced dry food specially formulated for indoor cats.",
+      "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Balanced dry food specially formulated for hairball control in indoor cats.",
   },
   {
     id: 3,
@@ -49,8 +52,9 @@ export const petShopProducts = [
     stock: 38,
     brand: "PuppyBite",
     image:
-      "https://images.unsplash.com/photo-1589924691106-0d0b0b5f1b8d?auto=format&fit=crop&w=600&q=80",
-    description: "Complete nutrition specially designed for growing puppies.",
+      "https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?auto=format&fit=crop&w=600&q=80",
+    description:
+      "DHA-enriched kibble specially designed for optimal puppy development.",
   },
   {
     id: 4,
@@ -64,8 +68,8 @@ export const petShopProducts = [
     stock: 47,
     brand: "MeowMeal",
     image:
-      "https://images.unsplash.com/photo-1589924691106-0d0b0b5f1b8d?auto=format&fit=crop&w=600&q=80",
-    description: "Premium salmon-based food for healthy adult cats.",
+      "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=600&q=80",
+    description: "Rich wild-caught salmon kibble for skin and coat health.",
   },
   {
     id: 5,
@@ -80,7 +84,8 @@ export const petShopProducts = [
     brand: "PlayPaw",
     image:
       "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=600&q=80",
-    description: "Durable rope toy for interactive play and chewing.",
+    description:
+      "Heavy-duty knotted cotton rope for interactive tug-of-war and dental play.",
   },
   {
     id: 6,
@@ -95,7 +100,8 @@ export const petShopProducts = [
     brand: "KittyFun",
     image:
       "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&w=600&q=80",
-    description: "Soft interactive mouse toy designed for playful cats.",
+    description:
+      "Catnip-infused plush mouse designed to stimulate natural hunting instincts.",
   },
   {
     id: 7,
@@ -109,12 +115,13 @@ export const petShopProducts = [
     stock: 63,
     brand: "PlayPaw",
     image:
-      "https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=600&q=80",
-    description: "Fun squeaky tennis balls perfect for active dogs.",
+      "https://images.unsplash.com/photo-1610555356070-d0efb6505f81?auto=format&fit=crop&w=600&q=80",
+    description:
+      "High-bounce felt tennis balls with built-in squeakers for energetic fetch.",
   },
   {
     id: 8,
-    name: "Adjustable Pet Collar",
+    name: "Adjustable Leather Collar",
     category: "Accessories",
     price: 349,
     originalPrice: 449,
@@ -124,8 +131,8 @@ export const petShopProducts = [
     stock: 62,
     brand: "PawStyle",
     image:
-      "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80",
-    description: "Comfortable adjustable collar for everyday walks.",
+      "https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=600&q=80",
+    description: "Soft padded genuine leather collar with rust-proof hardware.",
   },
   {
     id: 9,
@@ -139,8 +146,9 @@ export const petShopProducts = [
     stock: 38,
     brand: "WalkPro",
     image:
-      "https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=600&q=80",
-    description: "Strong retractable leash with an ergonomic handle.",
+      "https://images.unsplash.com/photo-1535294435445-d7249524ef2e?auto=format&fit=crop&w=600&q=80",
+    description:
+      "16ft nylon cord leash featuring quick-stop brake button and ergonomic grip.",
   },
   {
     id: 10,
@@ -154,8 +162,9 @@ export const petShopProducts = [
     stock: 88,
     brand: "PetServe",
     image:
-      "https://images.unsplash.com/photo-1589924691106-0d0b0b5f1b8d?auto=format&fit=crop&w=600&q=80",
-    description: "Rust-resistant stainless steel bowl for daily feeding.",
+      "https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Anti-skid rubber base stainless steel feeder bowl for food or water.",
   },
   {
     id: 11,
@@ -169,8 +178,9 @@ export const petShopProducts = [
     stock: 15,
     brand: "SmartPaw",
     image:
-      "https://images.unsplash.com/photo-1601758125946-6ec2ef64daf8?auto=format&fit=crop&w=600&q=80",
-    description: "Programmable feeder for convenient meal scheduling.",
+      "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Digital portion control timed automatic feeder for hassle-free meals.",
   },
   {
     id: 12,
@@ -184,12 +194,13 @@ export const petShopProducts = [
     stock: 24,
     brand: "CozyPaws",
     image:
-      "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=600&q=80",
-    description: "Soft orthopedic bed providing excellent joint support.",
+      "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80",
+    description:
+      "High-density memory foam cushion with washable velvet plush cover.",
   },
   {
     id: 13,
-    name: "Pet Grooming Brush",
+    name: "Shed-Control Grooming Brush",
     category: "Accessories",
     price: 299,
     originalPrice: 349,
@@ -199,8 +210,9 @@ export const petShopProducts = [
     stock: 57,
     brand: "GroomEase",
     image:
-      "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=600&q=80",
-    description: "Gentle grooming brush for removing loose fur and tangles.",
+      "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Deshedding tool with soft stainless steel bristles for coat maintenance.",
   },
   {
     id: 14,
@@ -214,12 +226,13 @@ export const petShopProducts = [
     stock: 84,
     brand: "TreatHouse",
     image:
-      "https://images.unsplash.com/photo-1589924691106-0d0b0b5f1b8d?auto=format&fit=crop&w=600&q=80",
-    description: "Tasty chicken-flavored treats perfect for training rewards.",
+      "https://images.unsplash.com/photo-1582798358481-d199fb7347bb?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Oven-baked real chicken jerky bites for training and rewards.",
   },
   {
     id: 15,
-    name: "Tuna Cat Treats",
+    name: "Crunchy Tuna Cat Treats",
     category: "Cat Food",
     price: 299,
     originalPrice: 349,
@@ -230,7 +243,8 @@ export const petShopProducts = [
     brand: "MeowTreat",
     image:
       "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=600&q=80",
-    description: "Delicious tuna treats made for cats of all ages.",
+    description:
+      "Bite-sized salmon and tuna filled crunchy snacks for adult cats.",
   },
   {
     id: 16,
@@ -244,12 +258,13 @@ export const petShopProducts = [
     stock: 67,
     brand: "DentalPaw",
     image:
-      "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80",
-    description: "Chew sticks designed to support daily dental hygiene.",
+      "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=600&q=80",
+    description:
+      "Textured chew sticks clinically proven to reduce plaque and freshen breath.",
   },
   {
     id: 17,
-    name: "Cat Scratching Board",
+    name: "Sisal Cat Scratching Tree",
     category: "Toys",
     price: 599,
     originalPrice: 699,
@@ -259,13 +274,13 @@ export const petShopProducts = [
     stock: 32,
     brand: "ScratchZone",
     image:
-      "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?auto=format&fit=crop&w=600&q=80",
     description:
-      "Durable scratching board to keep cats active and entertained.",
+      "Natural sisal post tree with dangling ball for active claw maintenance.",
   },
   {
     id: 18,
-    name: "Portable Pet Water Bottle",
+    name: "Portable Travel Water Bottle",
     category: "Accessories",
     price: 499,
     originalPrice: 599,
@@ -275,39 +290,40 @@ export const petShopProducts = [
     stock: 46,
     brand: "TravelPaws",
     image:
-      "https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&w=600&q=80",
-    description: "Leak-proof portable water bottle for pets on the go.",
+      "https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd?auto=format&fit=crop&w=600&q=80",
+    description:
+      "BPA-free outdoor water dispenser with integrated drinking trough.",
   },
   {
     id: 19,
-    name: "Cooling Pet Mat",
-    category: "Accessories",
-    price: 899,
-    originalPrice: 1099,
-    discount: 18,
-    rating: 4.7,
-    reviews: 93,
-    stock: 35,
-    brand: "CoolPaws",
+    name: "Cattle & Goat Feed Mix",
+    category: "Livestock Feed",
+    price: 1299,
+    originalPrice: 1499,
+    discount: 13,
+    rating: 4.8,
+    reviews: 87,
+    stock: 120,
+    brand: "AgriCare",
     image:
-      "https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=600&q=80",
     description:
-      "Cooling mat designed to keep pets comfortable during hot days.",
+      "Nutrient-rich grain and mineral feed blend for healthy livestock growth.",
   },
   {
     id: 20,
-    name: "Premium Puppy Food",
+    name: "Grain-Free Organic Kibble",
     category: "Dog Food",
-    price: 1099,
-    originalPrice: 1299,
-    discount: 15,
+    price: 1199,
+    originalPrice: 1399,
+    discount: 14,
     rating: 4.9,
     reviews: 287,
     stock: 48,
     brand: "PuppyBite",
     image:
-      "https://images.unsplash.com/photo-1589924691106-0d0b0b5f1b8d?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80",
     description:
-      "Complete balanced nutrition specially made for growing puppies.",
+      "Hypoallergenic grain-free kibble prepared with real turkey and veggies.",
   },
 ];
