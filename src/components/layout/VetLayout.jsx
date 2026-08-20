@@ -3,7 +3,7 @@ import VetFilterSidebar from "../vet/VetFilterSidebar";
 import VetCard from "../vet/VetCard";
 import { vetsData } from "../../data/vetData";
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 6;
 
 export default function VetLayout() {
   const [search, setSearch] = useState("");
@@ -88,7 +88,7 @@ export default function VetLayout() {
             </p>
 
             {paginatedVets.length > 0 ? (
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
                 {paginatedVets.map((vet) => (
                   <VetCard key={vet.id} vet={vet} />
                 ))}
