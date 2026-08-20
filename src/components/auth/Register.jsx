@@ -1,6 +1,85 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { ChevronDown } from "lucide-react";
 import OAuth from "./OAuth";
+
+const ROLE_OPTIONS = [
+  { value: "pet_parent", label: "Pet Parent" },
+  { value: "animal_lover", label: "Animal Lover" },
+  { value: "ngo_rescue", label: "NGO / Rescue" },
+  { value: "veterinarian", label: "Veterinarian" },
+  { value: "volunteer", label: "Volunteer" },
+];
+
+// Custom Dropdown matching the UI theme
+function CustomSelect({ value, onChange, options, placeholder }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const selectedOption = options.find((opt) => opt.value === value);
+
+  return (
+    <div className="relative w-full" ref={dropdownRef}>
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className={`w-full flex items-center justify-between bg-[#FFF8F0] border rounded-xl px-3 py-2.5 text-sm transition-all duration-200 outline-none ${
+          isOpen
+            ? "border-[#F97316] ring-2 ring-[#F97316]/20 bg-white"
+            : "border-[#F0E1CF] hover:border-[#F97316]/50 hover:bg-white"
+        }`}
+      >
+        <span
+          className={
+            selectedOption ? "text-[#1E2A4A] font-medium" : "text-[#B8AB9B]"
+          }
+        >
+          {selectedOption ? selectedOption.label : placeholder}
+        </span>
+        <ChevronDown
+          size={18}
+          className={`text-[#9CA3AF] transition-transform duration-200 ${
+            isOpen ? "rotate-180 text-[#F97316]" : ""
+          }`}
+        />
+      </button>
+
+      {/* Dropdown Menu */}
+      {isOpen && (
+        <div className="absolute z-20 top-full left-0 right-0 mt-1.5 bg-white border border-[#F0E1CF] rounded-xl shadow-lg shadow-orange-950/5 overflow-hidden py-1 max-h-56 overflow-y-auto animate-in fade-in slide-in-from-top-1 duration-150">
+          {options.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => {
+                onChange(option.value);
+                setIsOpen(false);
+              }}
+              className={`w-full text-left px-3.5 py-2 text-sm transition-colors duration-150 flex items-center justify-between ${
+                value === option.value
+                  ? "bg-[#FFF8F0] text-[#F97316] font-semibold"
+                  : "text-[#1E2A4A] hover:bg-[#FFF8F0]/80"
+              }`}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function PasswordInput({ name, value, onChange, placeholder }) {
   const [show, setShow] = useState(false);
@@ -33,7 +112,9 @@ function PasswordInput({ name, value, onChange, placeholder }) {
 
 function Register({ onLogin, onRegister }) {
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
+    mobileNumber: "",
     role: "",
     password: "",
     confirmPassword: "",
@@ -51,15 +132,26 @@ function Register({ onLogin, onRegister }) {
     }));
   };
 
+  const handleRoleChange = (roleValue) => {
+    setError("");
+    setFormData((prev) => ({
+      ...prev,
+      role: roleValue,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
+    const name = formData.name.trim();
     const email = formData.email.trim().toLowerCase();
+    const mobileNumber = formData.mobileNumber.trim();
     const role = formData.role;
 
+    if (!name) return setError("Full name required");
     if (!email) return setError("Email required");
-    if (!role) return setError("Please tell us who you are");
+    if (!role) return setError("Please select your role");
 
     if (formData.password.length < 8)
       return setError("Password must be at least 8 characters");
@@ -70,7 +162,7 @@ function Register({ onLogin, onRegister }) {
     setLoading(true);
 
     try {
-      await onRegister(email, role, formData.password);
+      await onRegister(name, email, mobileNumber, role, formData.password);
     } catch (err) {
       setError(err?.message || "Unable to create account");
     } finally {
@@ -93,61 +185,58 @@ function Register({ onLogin, onRegister }) {
 
       <OAuth />
 
+      {/* Or */}
+      <div className="relative flex items-center justify-center py-1">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-[#F0E1CF]" />
+        </div>
+        <div className="relative bg-white px-3 text-xs uppercase text-[#B8AB9B] font-medium tracking-wider">
+          or
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit} className="space-y-3">
+        {/* Full Name */}
+        <input
+          name="name"
+          type="text"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Full Name"
+          required
+          className="w-full bg-[#FFF8F0] border border-[#F0E1CF] rounded-xl px-3 py-2.5 text-sm text-[#1E2A4A] placeholder:text-[#B8AB9B] focus:outline-none focus:ring-2 focus:ring-[#F97316]/30"
+        />
+
+        {/* Email Address */}
         <input
           name="email"
           type="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Email"
+          placeholder="Email Address"
           required
           className="w-full bg-[#FFF8F0] border border-[#F0E1CF] rounded-xl px-3 py-2.5 text-sm text-[#1E2A4A] placeholder:text-[#B8AB9B] focus:outline-none focus:ring-2 focus:ring-[#F97316]/30"
         />
 
-        {/* New Role Dropdown */}
-        <select
-          name="role"
-          value={formData.role}
+        {/* Mobile Number (OPTIONAL) */}
+        <input
+          name="mobileNumber"
+          type="tel"
+          value={formData.mobileNumber}
           onChange={handleChange}
-          required
-          className={`
-            w-full 
-            bg-[#FFF8F0] 
-            border border-[#F0E1CF] 
-            rounded-xl 
-            px-3 py-2.5 
-            text-sm 
-            cursor-pointer
-            transition-all duration-200 ease-in-out
-            hover:border-[#F97316]/50
-            hover:shadow-sm
-            hover:bg-white
-            focus:outline-none 
-            focus:border-[#F97316] 
-            focus:ring-4 focus:ring-[#F97316]/10 
-            ${formData.role === "" ? "text-[#B8AB9B]" : "text-[#1E2A4A]"}
-          `}
-        >
-          <option value="" disabled className="text-[#B8AB9B] bg-white">
-            Which best describes you?
-          </option>
-          <option value="pet_parent" className="text-[#1E2A4A] bg-white py-1">
-            Pet Parent
-          </option>
-          <option value="animal_lover" className="text-[#1E2A4A] bg-white py-1">
-            Animal Lover
-          </option>
-          <option value="ngo_rescue" className="text-[#1E2A4A] bg-white py-1">
-            NGO / Rescue
-          </option>
-          <option value="veterinarian" className="text-[#1E2A4A] bg-white py-1">
-            Veterinarian
-          </option>
-          <option value="volunteer" className="text-[#1E2A4A] bg-white py-1">
-            Volunteer
-          </option>
-        </select>
+          placeholder="Mobile Number (Optional)"
+          className="w-full bg-[#FFF8F0] border border-[#F0E1CF] rounded-xl px-3 py-2.5 text-sm text-[#1E2A4A] placeholder:text-[#B8AB9B] focus:outline-none focus:ring-2 focus:ring-[#F97316]/30"
+        />
 
+        {/* Custom Styled Role Dropdown */}
+        <CustomSelect
+          value={formData.role}
+          onChange={handleRoleChange}
+          options={ROLE_OPTIONS}
+          placeholder="Which best describes you?"
+        />
+
+        {/* Password */}
         <PasswordInput
           name="password"
           value={formData.password}
@@ -155,6 +244,7 @@ function Register({ onLogin, onRegister }) {
           placeholder="Password"
         />
 
+        {/* Confirm Password */}
         <PasswordInput
           name="confirmPassword"
           value={formData.confirmPassword}
@@ -164,23 +254,8 @@ function Register({ onLogin, onRegister }) {
 
         <button
           disabled={loading}
-          className="
-            w-full
-            bg-[#F97316]
-            hover:bg-[#EA580C]
-            disabled:opacity-60
-            disabled:hover:bg-[#F97316]
-            rounded-xl
-            py-2.5
-            text-white
-            text-sm
-            font-medium
-            transition-all
-            duration-200
-            shadow-md
-            shadow-orange-500/20
-            mt-2
-          "
+          className="w-full bg-[#F97316] hover:bg-[#EA580C] disabled:opacity-60 disabled:hover:bg-[#F97316] rounded-xl py-2.5 text-white text-sm font-medium
+          transition-all duration-200 shadow-md shadow-orange-500/20 mt-2"
         >
           {loading ? "Creating account..." : "Create Account"}
         </button>

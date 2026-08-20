@@ -51,12 +51,17 @@ function AuthPage() {
       dispatch(setUser(data.user));
     } catch (err) {
       console.error(err);
-
       throw err;
     }
   };
 
-  const registerUser = async (email, role, password) => {
+  const registerUser = async (name, email, mobileNumber, role, password) => {
+    if (!email || !password || !role) {
+      return res.status(400).json({
+        message: "Email, password, and role are required.",
+        success: false,
+      });
+    }
     try {
       const res = await fetch(`${API}/auth/register/`, {
         method: "POST",
@@ -65,7 +70,9 @@ function AuthPage() {
         },
         credentials: "include",
         body: JSON.stringify({
+          name,
           email: email.trim().toLowerCase(),
+          mobileNumber,
           role: role.trim(),
           password,
         }),
@@ -88,15 +95,9 @@ function AuthPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-[#FFF8F0]">
-      <div
-        className="
-          w-full max-w-4xl rounded-2xl overflow-hidden border border-[#F0E1CF] shadow-2xl shadow-orange-900/10 grid grid-cols-1 md:grid-cols-2"
-      >
+      <div className="w-full max-w-4xl rounded-2xl overflow-hidden border border-[#F0E1CF] shadow-2xl shadow-orange-900/10 grid grid-cols-1 md:grid-cols-2">
         {/* LEFT PANEL */}
-        <div
-          className="
-            hidden md:flex flex-col justify-center bg-gradient-to-br from-[#FFF1E1] to-[#FFE4D0] border-r border-[#F0E1CF] px-10 py-12"
-        >
+        <div className="hidden md:flex flex-col justify-center bg-gradient-to-br from-[#FFF1E1] to-[#FFE4D0] border-r border-[#F0E1CF] px-10 py-12">
           <div className="space-y-10">
             {/* LOGO */}
             <div className="flex items-center gap-3">
@@ -133,7 +134,6 @@ function AuthPage() {
 
         {/* RIGHT PANEL */}
         <div className="relative flex items-start justify-center p-7 md:p-10 bg-white">
-          {/* CLOSE and go back to root*/}
           <button
             onClick={() => navigate("/")}
             className="absolute top-5 right-5 text-[#9CA3AF] hover:text-[#1E2A4A] transition z-10"
