@@ -18,11 +18,11 @@ function AuthPage() {
 
   useEffect(() => {
     if (user) {
-      navigate(`/${user.username}`);
+      navigate(`/pet-shop`);
     }
   }, [user, navigate]);
 
-  const loginUser = async (identifier, password) => {
+  const loginUser = async (email, password) => {
     try {
       const res = await fetch(`${API}/auth/login/`, {
         method: "POST",
@@ -31,7 +31,7 @@ function AuthPage() {
         },
         credentials: "include",
         body: JSON.stringify({
-          identifier,
+          email,
           password,
         }),
       });
@@ -40,15 +40,17 @@ function AuthPage() {
       if (!res.ok) {
         if (res.status === 403) {
           navigate("/checkEmail", {
-            state: { identifier },
+            state: { email },
           });
           return;
         }
 
         throw new Error(data.message || "Login failed");
       }
+
       dispatch(setAccessToken(data.access_token));
       dispatch(setUser(data.user));
+      navigate("/pet-shop");
     } catch (err) {
       console.error(err);
       throw err;
