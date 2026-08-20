@@ -20,11 +20,10 @@ const slides = [
     highlight: "Consultation",
     description:
       "Connect with licensed veterinarians for cows, horses, pets, birds, and exotics. Get remote diagnoses, prescriptions, and expert care advice from home.",
-    // Brighter, clear daylight farm & livestock scene
     image:
       "https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?q=80&w=1920&h=1080&auto=format&fit=crop",
     ctaLabel: "Book a consultation",
-    ctaPath: "/services/consultation",
+    ctaPath: "/animal-pharmacy",
   },
   {
     id: "pharmacy",
@@ -34,11 +33,10 @@ const slides = [
     highlight: "Pharmacy",
     description:
       "Order vet-verified medication, supplements, and vaccines for cattle, poultry, and household pets with fast and reliable delivery.",
-    // Bright image: Clean, well-lit pharmacy and clinical setup
     image:
       "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=1920&h=1080&auto=format&fit=crop",
     ctaLabel: "Visit the pharmacy",
-    ctaPath: "/services/pharmacy",
+    ctaPath: "/animal-pharmacy",
   },
   {
     id: "petshop",
@@ -52,7 +50,7 @@ const slides = [
     image:
       "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1920&h=1080&auto=format&fit=crop",
     ctaLabel: "Shop now",
-    ctaPath: "/shop",
+    ctaPath: "/pet-shop",
   },
   {
     id: "ai-assistant",
