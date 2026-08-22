@@ -7,6 +7,7 @@ import AuthPage from "./pages/AuthPage";
 import CheckEmail from "./pages/CheckEmail";
 import PetShop from "./pages/PetShop";
 import AnimalPharmacy from "./pages/AnimalPharmacy";
+import VeterinarianApplicationPage from "./pages/VeterinarianApplicationPage";
 import VetLayout from "./components/layout/VetLayout";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/checkEmail" element={<CheckEmail />} />
         <Route path="/pet-shop" element={<PetShop />} />
         <Route path="/animal-pharmacy" element={<AnimalPharmacy />} />
+        <Route path="/vet-apply" element={<VeterinarianApplicationPage />} />
         <Route path="/animal-pharmacy" element={<AnimalPharmacy />} />
         <Route path="/vet" element={<VetLayout />} />
       </Routes>
