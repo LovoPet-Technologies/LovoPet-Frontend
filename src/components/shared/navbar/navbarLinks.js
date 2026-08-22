@@ -11,7 +11,7 @@ export const appNavbarLinks = [
   { id: 1, name: "Home", path: "/" },
   { id: 2, name: "Pet Shop", path: "/pet-shop" },
   { id: 3, name: "Pharmacy", path: "/pharmacy" },
-  { id: 4, name: "Doctor Consultation", path: "/doctor-consultation" },
+  { id: 4, name: "veterinary Consultation", path: "/vet" },
 ];
 
 export default homeNavbarLinks;
