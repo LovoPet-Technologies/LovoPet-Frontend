@@ -23,7 +23,6 @@ function App() {
         <Route path="/pet-shop" element={<PetShop />} />
         <Route path="/animal-pharmacy" element={<AnimalPharmacy />} />
         <Route path="/vet-apply" element={<VeterinarianApplicationPage />} />
-        <Route path="/animal-pharmacy" element={<AnimalPharmacy />} />
         <Route path="/vet" element={<VetLayout />} />
       </Routes>
     </>
