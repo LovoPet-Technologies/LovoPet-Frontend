@@ -23,7 +23,7 @@ const slides = [
     image:
       "https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?q=80&w=1920&h=1080&auto=format&fit=crop",
     ctaLabel: "Book a consultation",
-    ctaPath: "/animal-pharmacy",
+    ctaPath: "/vet",
   },
   {
     id: "pharmacy",
