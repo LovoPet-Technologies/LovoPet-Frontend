@@ -3,6 +3,7 @@ import HeroBanner from "../ecommerce/HeroBanner";
 import CategorySection from "../ecommerce/CategorySection";
 import FilterSortBar from "../ecommerce/FilterSortBar";
 import ProductCard from "../ecommerce/ProductCard";
+import ProductDetailsPage from "../ecommerce/ProductDetailsPage";
 
 export default function ShopLayout({
   heroTitle,
@@ -13,6 +14,7 @@ export default function ShopLayout({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("popularity");
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Filter Logic (Search + Category)
   const filteredProducts = products.filter((item) => {
@@ -28,8 +30,17 @@ export default function ShopLayout({
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortBy === "low-high") return a.price - b.price;
     if (sortBy === "high-low") return b.price - a.price;
-    return b.reviews - a.reviews; // Popularity fallback based on reviews
+    return b.reviews - a.reviews;
   });
+
+  if (selectedProduct) {
+    return (
+      <ProductDetailsPage
+        product={selectedProduct}
+        onBack={() => setSelectedProduct(null)}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#FAF6F0] text-[#3B1843] font-sans">
@@ -48,10 +59,14 @@ export default function ShopLayout({
           setSortBy={setSortBy}
         />
 
-        {sortedProducts.link > 0 || sortedProducts.length > 0 ? (
+        {sortedProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {sortedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onSelectProduct={setSelectedProduct}
+              />
             ))}
           </div>
         ) : (

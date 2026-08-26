@@ -1,4 +1,3 @@
-// ProductCard.jsx
 import React, { useState } from "react";
 import { Heart, Star, ShoppingCart } from "lucide-react";
 
@@ -20,12 +19,15 @@ function StockBadge({ stock }) {
   return null;
 }
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, onSelectProduct }) {
   const [saved, setSaved] = useState(false);
   const soldOut = product.stock === "out-of-stock";
 
   return (
-    <div className="group bg-white border border-[#EFE8DC] rounded-[20px] overflow-hidden flex flex-col justify-between hover:border-[#E0603A]/50 hover:shadow-[0_18px_30px_-18px_rgba(59,24,67,0.28)] transition-all duration-300">
+    <div 
+      onClick={() => onSelectProduct && onSelectProduct(product)}
+      className="group bg-white border border-[#EFE8DC] rounded-[20px] overflow-hidden flex flex-col justify-between hover:border-[#E0603A]/50 hover:shadow-[0_18px_30px_-18px_rgba(59,24,67,0.28)] transition-all duration-300 cursor-pointer"
+    >
       <div>
         <div className="relative h-48 w-full bg-[#FAF6F0] overflow-hidden">
           <img
@@ -44,7 +46,10 @@ export default function ProductCard({ product }) {
             </span>
           )}
           <button
-            onClick={() => setSaved((s) => !s)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setSaved((s) => !s);
+            }}
             aria-label="Save to wishlist"
             className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-sm hover:scale-105 transition-transform"
           >
@@ -100,14 +105,9 @@ export default function ProductCard({ product }) {
         </div>
         <button
           disabled={soldOut}
+          onClick={(e) => e.stopPropagation()}
           className="flex items-center gap-1.5 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all duration-200 shadow-sm disabled:cursor-not-allowed disabled:opacity-40"
           style={{ background: soldOut ? "#B7AFA2" : "#3B1843" }}
-          onMouseEnter={(e) => {
-            if (!soldOut) e.currentTarget.style.background = "#E0603A";
-          }}
-          onMouseLeave={(e) => {
-            if (!soldOut) e.currentTarget.style.background = "#3B1843";
-          }}
         >
           <ShoppingCart size={13} />
           {soldOut ? "Notify me" : "Add"}
