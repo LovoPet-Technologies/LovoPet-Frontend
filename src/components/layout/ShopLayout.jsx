@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeroBanner from "../ecommerce/HeroBanner";
 import CategorySection from "../ecommerce/CategorySection";
 import FilterSortBar from "../ecommerce/FilterSortBar";
@@ -16,7 +16,10 @@ export default function ShopLayout({
   const [sortBy, setSortBy] = useState("popularity");
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // Filter Logic (Search + Category)
+  useEffect(() => {
+    if (selectedProduct) window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [selectedProduct]);
+
   const filteredProducts = products.filter((item) => {
     const matchesSearch = item.name
       .toLowerCase()
@@ -26,7 +29,6 @@ export default function ShopLayout({
     return matchesSearch && matchesCategory;
   });
 
-  // Sort Logic
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortBy === "low-high") return a.price - b.price;
     if (sortBy === "high-low") return b.price - a.price;
@@ -37,6 +39,8 @@ export default function ShopLayout({
     return (
       <ProductDetailsPage
         product={selectedProduct}
+        allProducts={products}
+        onSelectProduct={setSelectedProduct}
         onBack={() => setSelectedProduct(null)}
       />
     );
