@@ -1,4 +1,7 @@
+// components/homepage/WhyChooseUs.jsx
 import { ShieldCheck, Clock3, Bot, HeartHandshake } from "lucide-react";
+import { services } from "./homepageData";
+import SectionNav from "./SectionNav";
 
 const features = [
   {
@@ -6,84 +9,108 @@ const features = [
     icon: ShieldCheck,
     title: "Trusted Veterinary Experts",
     description:
-      "Consult experienced and verified veterinarians committed to providing reliable care for your pets.",
+      "Consult experienced, verified veterinarians committed to reliable care for every animal.",
+    image: services[0].image,
   },
   {
     id: 2,
     icon: Clock3,
     title: "Care When You Need It",
     description:
-      "Access pet healthcare services anytime with a seamless and convenient digital experience.",
+      "Access animal healthcare anytime through a seamless, always-on digital experience.",
+    image: services[1].image,
   },
   {
     id: 3,
     icon: Bot,
     title: "AI-Powered Assistance",
     description:
-      "Receive intelligent guidance, health insights, and personalized recommendations for your pets.",
+      "Get intelligent guidance, health insights, and personalised recommendations in seconds.",
+    image: services[3].image,
   },
   {
     id: 4,
     icon: HeartHandshake,
     title: "Everything in One Platform",
     description:
-      "From consultations to shopping and adoption, manage your pet's needs from a single place.",
+      "From consultations to shopping and adoption, manage every animal's needs in one place.",
+    image: services[4].image,
   },
+];
+
+const badges = [
+  "Verified Veterinarians",
+  "Every Species Welcome",
+  "AI-Assisted Triage",
+  "Nationwide Delivery",
 ];
 
 function WhyChooseUs() {
   return (
-    <section className="bg-[#FDF8F2] py-16 lg:py-5 xl:py-5">
+    <section
+      id="why-choose-us"
+      className="scroll-mt-16 bg-[#FDF8F2] pt-16 lg:pt-20"
+    >
       <div className="mx-auto max-w-6xl xl:max-w-7xl px-6">
+        <div className="flex flex-wrap items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#5C2A73] to-[#E86A33] px-6 py-5 text-center shadow-md sm:gap-6">
+          {badges.map((badge) => (
+            <span
+              key={badge}
+              className="rounded-full bg-white/15 px-4 py-2 text-xs font-semibold text-white backdrop-blur-sm sm:text-sm"
+            >
+              {badge}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="mx-auto mt-14 max-w-6xl xl:max-w-7xl px-6">
         <div className="mx-auto max-w-2xl xl:max-w-3xl text-center">
           <span className="rounded-full bg-[#5C2A73]/10 px-3.5 py-1.5 text-xs lg:text-sm font-semibold text-[#5C2A73]">
             WHY LOVOPET
           </span>
-
           <h2 className="mt-5 text-3xl lg:text-4xl xl:text-5xl font-extrabold text-[#1E2A4A]">
-            Why Pet Parents
-            <br />
-            Choose LovoPet
+            Why Choose LovoPet
           </h2>
-
           <p className="mt-2 text-base lg:text-lg leading-7 lg:leading-8 text-gray-600">
-            We combine trusted veterinary expertise, intelligent technology, and
-            a complete ecosystem of pet care services to deliver a seamless
-            experience for every pet parent.
+            Trusted veterinary expertise, intelligent technology, and a complete
+            ecosystem of animal care services, built around every kind of
+            companion.
           </p>
         </div>
 
-        <div className="mt-5 lg:mt-5 grid gap-6 lg:gap-6 xl:gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-6 pb-4 md:grid-cols-2">
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
               <div
                 key={feature.id}
-                className="group rounded-2xl border border-[#E5D8C9] bg-white p-6 lg:p-6 xl:p-8 text-center shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#E86A33]/40 hover:shadow-lg"
+                className="group relative h-64 overflow-hidden rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
               >
-                <div className="mx-auto flex h-12 w-12 lg:h-13 lg:w-13 xl:h-16 xl:w-16 items-center justify-center rounded-xl lg:rounded-2xl bg-[#5C2A73]/10 transition-all duration-300 group-hover:bg-[#E86A33]">
-                  <Icon
-                    size={24}
-                    className="text-[#5C2A73] transition-colors duration-300 group-hover:text-white xl:hidden"
-                  />
-                  <Icon
-                    size={28}
-                    className="hidden text-[#5C2A73] transition-colors duration-300 group-hover:text-white xl:block"
-                  />
+                <img
+                  src={feature.image}
+                  alt={feature.title}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                  <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#E86A33] text-white">
+                    <Icon size={20} />
+                  </div>
+                  <h3 className="text-lg font-bold text-white sm:text-xl">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-white/85">
+                    {feature.description}
+                  </p>
                 </div>
-
-                <h3 className="mt-4 lg:mt-5 text-base lg:text-lg xl:text-xl font-bold text-[#5C2A73]">
-                  {feature.title}
-                </h3>
-
-                <p className="mt-3 text-[15px] leading-6 lg:leading-7 text-gray-600">
-                  {feature.description}
-                </p>
               </div>
             );
           })}
         </div>
       </div>
+
+      <SectionNav nextId="how-it-works" label="How It Works" />
     </section>
   );
 }
