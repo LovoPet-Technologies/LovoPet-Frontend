@@ -1,83 +1,9 @@
+// components/homepage/Hero.jsx
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Stethoscope,
-  Pill,
-  ShoppingBag,
-  Sparkles,
-  PawPrint,
-} from "lucide-react";
-
-const slides = [
-  {
-    id: "consultation",
-    icon: Stethoscope,
-    tag: "Livestock, Farm & Pets",
-    title: "Online Vet Consultation",
-    highlight: "Consultation",
-    description:
-      "Connect with licensed veterinarians for cows, horses, pets, birds, and exotics. Get remote diagnoses, prescriptions, and expert care advice from home.",
-    image:
-      "https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?q=80&w=1920&h=1080&auto=format&fit=crop",
-    ctaLabel: "Book a consultation",
-    ctaPath: "/vet",
-  },
-  {
-    id: "pharmacy",
-    icon: Pill,
-    tag: "All Species Prescriptions",
-    title: "Animal Pharmacy",
-    highlight: "Pharmacy",
-    description:
-      "Order vet-verified medication, supplements, and vaccines for cattle, poultry, and household pets with fast and reliable delivery.",
-    image:
-      "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=1920&h=1080&auto=format&fit=crop",
-    ctaLabel: "Visit the pharmacy",
-    ctaPath: "/animal-pharmacy",
-  },
-  {
-    id: "petshop",
-    icon: ShoppingBag,
-    tag: "Pet & Farm Supplies",
-    title: "Pet & Animal Shop",
-    highlight: "Shop",
-    description:
-      "Quality feed, grooming tools, enclosures, and essentials for farm livestock, birds, and domestic pets curated by experts.",
-    image:
-      "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1920&h=1080&auto=format&fit=crop",
-    ctaLabel: "Shop now",
-    ctaPath: "/pet-shop",
-  },
-  {
-    id: "ai-assistant",
-    icon: Sparkles,
-    tag: "Birds, Exotics & More",
-    title: "AI Health Assistant",
-    highlight: "Health Assistant",
-    description:
-      "Describe symptoms for any animal—from parrots and reptiles to dogs and cattle—and receive instant clinical triage advice.",
-    image:
-      "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?q=80&w=1920&h=1080&auto=format&fit=crop",
-    ctaLabel: "Try the assistant",
-    ctaPath: "/services/ai-assistant",
-  },
-  {
-    id: "adoption",
-    icon: PawPrint,
-    tag: "Rescue & Sanctuary",
-    title: "Animal Adoption",
-    highlight: "Adoption",
-    description:
-      "Browse verified rescues and shelters for dogs, cats, farm animals, and rescued livestock looking for a safe home.",
-    image:
-      "https://images.unsplash.com/photo-1533318087102-b3ad366ed041?q=80&w=1920&h=1080&auto=format&fit=crop",
-    ctaLabel: "Start adopting",
-    ctaPath: "/adoption",
-  },
-];
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { services as slides } from "./homepageData";
+import SectionNav from "./SectionNav";
 
 const AUTOPLAY_MS = 6000;
 
@@ -91,14 +17,12 @@ function Hero() {
   const timerRef = useRef(null);
 
   const goTo = useCallback((index) => {
-    // Infinite loop indexing modulo logic
     setActive((index + slides.length) % slides.length);
   }, []);
 
   const next = useCallback(() => goTo(active + 1), [active, goTo]);
   const prev = useCallback(() => goTo(active - 1), [active, goTo]);
 
-  // Touch handlers for mobile swipe
   const handleTouchStart = (e) => {
     setPaused(true);
     setTouchStart(e.targetTouches[0].clientX);
@@ -111,30 +35,18 @@ function Hero() {
   const handleTouchEnd = () => {
     setPaused(false);
     if (!touchStart || !touchEnd) return;
-
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe) {
-      next();
-    } else if (isRightSwipe) {
-      prev();
-    }
-
-    // Reset touch coordinates
+    if (distance > 50) next();
+    else if (distance < -50) prev();
     setTouchStart(0);
     setTouchEnd(0);
   };
 
-  // Autoplay Effect (infinite loop)
   useEffect(() => {
     if (paused) return undefined;
-
     timerRef.current = setInterval(() => {
       setActive((prevIndex) => (prevIndex + 1) % slides.length);
     }, AUTOPLAY_MS);
-
     return () => clearInterval(timerRef.current);
   }, [paused]);
 
@@ -144,15 +56,15 @@ function Hero() {
 
   return (
     <section
-      className="relative w-full overflow-hidden select-none"
+      id="home"
+      className="relative w-full overflow-hidden select-none bg-[#1E2A4A]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="relative h-[560px] w-full sm:h-[620px] lg:h-[720px]">
-        {/* Background images */}
+      <div className="relative h-[560px] w-full sm:h-[620px] lg:h-[680px]">
         {slides.map((s, i) => (
           <img
             key={s.id}
@@ -164,10 +76,8 @@ function Hero() {
           />
         ))}
 
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
 
-        {/* Main Content */}
         <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-center px-6 lg:px-10">
           <div className="max-w-2xl">
             <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-black/20 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md sm:text-sm">
@@ -207,7 +117,6 @@ function Hero() {
           </div>
         </div>
 
-        {/* Navigation Arrows: Hidden on mobile (hidden), visible on desktop (sm:flex) */}
         <button
           onClick={prev}
           aria-label="Previous slide"
@@ -223,8 +132,7 @@ function Hero() {
           <ChevronRight size={22} />
         </button>
 
-        {/* Slide Indicators */}
-        <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2 sm:bottom-8">
+        <div className="absolute bottom-14 left-1/2 z-10 flex -translate-x-1/2 gap-2 sm:bottom-16">
           {slides.map((s, i) => (
             <button
               key={s.id}
@@ -237,6 +145,10 @@ function Hero() {
               }`}
             />
           ))}
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0">
+          <SectionNav nextId="services" label="Services" variant="dark" />
         </div>
       </div>
     </section>
