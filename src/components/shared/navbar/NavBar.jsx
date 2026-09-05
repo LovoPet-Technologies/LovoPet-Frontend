@@ -194,7 +194,7 @@ function NavBar() {
           <img
             src="/brandName.png"
             alt="LovoPet"
-            className="hidden h-7 w-auto object-contain sm:block sm:h-8"
+            className="h-6 w-auto object-contain sm:h-8"
           />
         </a>
 
