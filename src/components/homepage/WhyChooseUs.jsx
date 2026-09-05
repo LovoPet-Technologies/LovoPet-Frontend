@@ -18,7 +18,8 @@ const features = [
     title: "Care When You Need It",
     description:
       "Access animal healthcare anytime through a seamless, always-on digital experience.",
-    image: services[1].image,
+    image:
+      "https://images.pexels.com/photos/7121954/pexels-photo-7121954.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
   },
   {
     id: 3,
@@ -26,7 +27,8 @@ const features = [
     title: "AI-Powered Assistance",
     description:
       "Get intelligent guidance, health insights, and personalised recommendations in seconds.",
-    image: services[3].image,
+    image:
+      "https://images.pexels.com/photos/8204323/pexels-photo-8204323.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
   },
   {
     id: 4,
@@ -34,7 +36,7 @@ const features = [
     title: "Everything in One Platform",
     description:
       "From consultations to shopping and adoption, manage every animal's needs in one place.",
-    image: services[4].image,
+    image: "https://images.pexels.com/photos/35634849/pexels-photo-35634849.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
   },
 ];
 
