@@ -20,7 +20,8 @@ export const services = [
     cardDescription:
       "Talk to a licensed vet about any animal, from a worried puppy to a poorly hen.",
     image:
-      "https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?q=80&w=1920&h=1080&auto=format&fit=crop",
+      "https://images.pexels.com/photos/6235114/pexels-photo-6235114.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
+    imagePosition: "center",
     ctaLabel: "Book a consultation",
     ctaPath: "/vet",
   },
@@ -36,7 +37,8 @@ export const services = [
     cardDescription:
       "Genuine, vet-verified medicines and supplements delivered to your door.",
     image:
-      "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=1920&h=1080&auto=format&fit=crop",
+      "https://images.pexels.com/photos/9742910/pexels-photo-9742910.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
+    imagePosition: "center",
     ctaLabel: "Visit the pharmacy",
     ctaPath: "/animal-pharmacy",
   },
@@ -52,7 +54,8 @@ export const services = [
     cardDescription:
       "Feed, grooming tools and everyday essentials, picked for every kind of animal.",
     image:
-      "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1920&h=1080&auto=format&fit=crop",
+      "https://images.pexels.com/photos/4445456/pexels-photo-4445456.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
+    imagePosition: "center top",
     ctaLabel: "Shop now",
     ctaPath: "/pet-shop",
   },
@@ -68,7 +71,8 @@ export const services = [
     cardDescription:
       "Describe a symptom and get instant, vet-informed triage for any animal.",
     image:
-      "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?q=80&w=1920&h=1080&auto=format&fit=crop",
+      "https://images.pexels.com/photos/34636800/pexels-photo-34636800.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
+    imagePosition: "center",
     ctaLabel: "Try the assistant",
     ctaPath: "/services/ai-assistant",
   },
@@ -84,7 +88,8 @@ export const services = [
     cardDescription:
       "Verified rescues and shelters, for animals of every shape and size.",
     image:
-      "https://images.unsplash.com/photo-1533318087102-b3ad366ed041?q=80&w=1920&h=1080&auto=format&fit=crop",
+      "https://images.pexels.com/photos/16620585/pexels-photo-16620585.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
+    imagePosition: "center",
     ctaLabel: "Start adopting",
     ctaPath: "/adoption",
   },

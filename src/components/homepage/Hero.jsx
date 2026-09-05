@@ -70,6 +70,7 @@ function Hero() {
             key={s.id}
             src={s.image}
             alt={s.title}
+            style={{ objectPosition: s.imagePosition || "center" }}
             className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
               i === active ? "opacity-100" : "opacity-0"
             }`}
