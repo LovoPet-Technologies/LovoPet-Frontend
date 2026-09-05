@@ -15,7 +15,10 @@ import { homeNavbarLinks, appNavbarLinks } from "./navbarLinks";
 import UserDropdown from "./UserDropdown";
 import MegaMenuPanel from "./MegaMenuPanel";
 
-const SCROLL_HIDE_THRESHOLD = 120; // px scrolled down
+const SCROLL_HIDE_THRESHOLD = 120; // px scrolled down before the subnav hides
+
+// Deep aubergine — distinct from the cream navbar/body and from the
+// brighter violet (#5C2A73) already used for headings/CTAs elsewhere.
 const SUBNAV_BG = "#2E1A38";
 const SUBNAV_BORDER = "rgba(255,255,255,0.08)";
 
@@ -23,6 +26,7 @@ function NavBar() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
+  const [mobileExpandedId, setMobileExpandedId] = useState(null);
   const [subnavVisible, setSubnavVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef(null);
@@ -129,6 +133,11 @@ function NavBar() {
 
     setOpen(false);
     setOpenMenuId(null);
+    setMobileExpandedId(null);
+  };
+
+  const toggleMobileExpanded = (id) => {
+    setMobileExpandedId((current) => (current === id ? null : id));
   };
 
   const handleSearchSubmit = (e) => {
@@ -273,6 +282,7 @@ function NavBar() {
         </div>
       </div>
 
+      {/* Always-visible search row on mobile — ecom apps put search up front, not buried in a menu */}
       <div className="border-t border-[#5C2A73]/10 px-4 py-2.5 md:hidden">
         <form onSubmit={handleSearchSubmit}>
           <div className="flex items-center overflow-hidden rounded-full border border-[#5C2A73]/15 bg-white">
@@ -364,7 +374,7 @@ function NavBar() {
 
       {/* Mobile Menu Dropdown */}
       {open && (
-        <div className="border-t border-[#5C2A73]/10 bg-[#FDF8F2] lg:hidden">
+        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-[#5C2A73]/10 bg-[#FDF8F2] lg:hidden">
           <div className="flex items-center gap-2 px-4 pt-3">
             <button
               type="button"
@@ -390,40 +400,79 @@ function NavBar() {
             </a>
           </div>
 
-          <ul className="space-y-1 px-4 py-3">
+          <ul className="max-h-[65vh] space-y-1 overflow-y-auto px-4 py-3">
             {currentNavLinks.map((link) => {
               const isActive = activePath === link.path;
+              const hasMega = Boolean(link.megaMenu);
+              const isExpanded = mobileExpandedId === link.id;
 
               return (
                 <li key={link.id}>
-                  <a
-                    href={link.path}
-                    onClick={(e) => handleNavClick(e, link.path)}
-                    className={`block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  <div
+                    className={`flex items-center rounded-md transition-colors ${
                       isActive
                         ? "bg-[#5C2A73]/10 text-[#E86A33]"
                         : "text-[#5C2A73] hover:bg-[#5C2A73]/10 hover:text-[#E86A33]"
                     }`}
                   >
-                    {link.name}
-                  </a>
+                    <a
+                      href={link.path}
+                      onClick={(e) => handleNavClick(e, link.path)}
+                      className="flex-1 px-3 py-2 text-sm font-medium"
+                    >
+                      {link.name}
+                    </a>
+                    {hasMega && (
+                      <button
+                        type="button"
+                        onClick={() => toggleMobileExpanded(link.id)}
+                        aria-label={`${isExpanded ? "Collapse" : "Expand"} ${link.name}`}
+                        aria-expanded={isExpanded}
+                        className="px-3 py-2"
+                      >
+                        <ChevronDown
+                          size={16}
+                          className={`transition-transform duration-200 ${
+                            isExpanded ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                    )}
+                  </div>
 
-                  {link.megaMenu && (
-                    <ul className="ml-3 mt-1 space-y-1 border-l border-[#5C2A73]/10 pl-3">
-                      {link.megaMenu
-                        .flatMap((col) => col.items)
-                        .map((item) => (
-                          <li key={item.path}>
-                            <a
-                              href={item.path}
-                              onClick={(e) => handleNavClick(e, item.path)}
-                              className="block rounded-md px-2 py-1.5 text-[13px] text-[#5C2A73]/80 hover:bg-[#5C2A73]/10 hover:text-[#E86A33]"
-                            >
-                              {item.label}
-                            </a>
-                          </li>
+                  {hasMega && (
+                    <div
+                      className="overflow-hidden transition-[max-height] duration-300 ease-in-out"
+                      style={{ maxHeight: isExpanded ? "16rem" : "0px" }}
+                    >
+                      <div className="max-h-64 overflow-y-auto py-1 pl-3">
+                        {link.megaMenu.map((col) => (
+                          <div key={col.title} className="mb-2 last:mb-0">
+                            <p className="px-2 pb-1 text-[11px] font-bold uppercase tracking-wide text-[#5C2A73]/50">
+                              {col.title}
+                            </p>
+                            <ul className="space-y-0.5 border-l border-[#5C2A73]/10 pl-2">
+                              {col.items.map((item) => (
+                                <li key={item.path}>
+                                  <a
+                                    href={item.path}
+                                    onClick={(e) => handleNavClick(e, item.path)}
+                                    className="flex items-center gap-2 rounded-md px-2 py-1.5 text-[13px] text-[#5C2A73]/80 hover:bg-[#5C2A73]/10 hover:text-[#E86A33]"
+                                  >
+                                    {item.label}
+                                    {item.badge && (
+                                      <span className="rounded-full bg-[#8B9A5B] px-1.5 py-0.5 text-[9px] font-semibold text-white">
+                                        {item.badge}
+                                      </span>
+                                    )}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         ))}
-                    </ul>
+                      </div>
+                    </div>
                   )}
                 </li>
               );
