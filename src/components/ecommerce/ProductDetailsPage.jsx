@@ -59,7 +59,7 @@ export default function ProductDetailsPage({
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#3B1843] font-sans">
+    <div className="min-h-screen bg-white text-[#3B1843] font-sans pt-10">
       {/* Top Breadcrumb Navigation */}
       <div className="max-w-7xl mx-auto px-6 py-4 border-b text-xs text-zinc-500 flex items-center justify-between">
         <button
@@ -338,11 +338,9 @@ export default function ProductDetailsPage({
               </span>
             </div>
 
-            <p className="text-zinc-600 text-sm leading-relaxed mb-8">
-              {product.description}
-            </p>
-
-            <div className="grid grid-cols-2 gap-4 mt-auto">
+            {/* Buy box actions — moved up so they sit right under the price,
+                above the fold, instead of after the description. */}
+            <div className="grid grid-cols-2 gap-4 mb-8">
               <button
                 disabled={soldOut}
                 className="flex items-center justify-center gap-2 py-4 border-2 border-zinc-200 rounded-xl font-bold text-zinc-800 hover:bg-zinc-50 transition disabled:opacity-40 disabled:cursor-not-allowed"
@@ -357,6 +355,10 @@ export default function ProductDetailsPage({
                 <Zap size={18} fill="currentColor" /> Buy at ₹{product.price}
               </button>
             </div>
+
+            <p className="text-zinc-600 text-sm leading-relaxed">
+              {product.description}
+            </p>
           </div>
         </div>
 

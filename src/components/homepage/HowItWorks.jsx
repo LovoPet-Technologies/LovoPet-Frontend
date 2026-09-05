@@ -18,7 +18,7 @@ const steps = [
     title: "Choose a Service",
     description:
       "Browse vet consultations, pharmacy, shopping, adoption, and AI-powered care.",
-    image: "https://images.pexels.com/photos/3736313/pexels-photo-3736313.jpeg",
+    image: "https://images.pexels.com/photos/7455936/pexels-photo-7455936.jpeg",
   },
   {
     id: 3,
