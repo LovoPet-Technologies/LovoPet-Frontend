@@ -7,71 +7,26 @@ const PALETTE = {
   border: "#EAE0D0",
 };
 
-const CATEGORY_DATA = {
-  All: {
-    image:
-      "https://images.pexels.com/photos/6271082/pexels-photo-6271082.jpeg?auto=format&fit=crop&w=400&q=80",
-  },
-  // Pet Shop Categories
-  "Dog Food": {
-    image:
-      "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=400&q=80",
-  },
-  "Cat Food": {
-    image:
-      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&q=80",
-  },
-  Toys: {
-    image:
-      "https://images.pexels.com/photos/27636744/pexels-photo-27636744.jpeg?auto=format&fit=crop&w=400&q=80",
-  },
-  Accessories: {
-    image:
-      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=400&q=80",
-  },
-  // Pharmacy Categories
-  Vitamins: {
-    image:
-      "https://images.pexels.com/photos/17891281/pexels-photo-17891281.jpeg?auto=format&fit=crop&w=400&q=80",
-  },
-  "Pain Relief": {
-    image:
-      "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=400&q=80",
-  },
-  "Flea & Tick": {
-    image:
-      "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=400&q=80",
-  },
-  "Skin Care": {
-    image:
-      "https://images.pexels.com/photos/4588066/pexels-photo-4588066.jpeg?auto=format&fit=crop&w=400&q=80",
-  },
-};
-
 export default function CategorySection({
-  categories: propCategories,
+  categories = [],
   selectedCategory,
   onSelectCategory,
 }) {
-  // Use passed category array or fall back to CATEGORY_DATA keys
-  const displayCategories =
-    propCategories && propCategories.length > 0
-      ? propCategories
-      : Object.keys(CATEGORY_DATA);
-
   return (
     <section style={{ backgroundColor: PALETTE.cream }} className="py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex gap-4 overflow-x-auto no-scrollbar py-2 px-4">
-          {displayCategories.map((cat) => {
-            const active = selectedCategory === cat;
-            // Match category image or fallback to 'All' image
-            const categoryMeta = CATEGORY_DATA[cat] || CATEGORY_DATA.All;
+          {categories.map((catObj) => {
+            // Support both object format ({ name, image }) and string format ("Dog Food")
+            const catName = typeof catObj === "object" ? catObj.name : catObj;
+            const catImage = typeof catObj === "object" ? catObj.image : "";
+
+            const active = selectedCategory === catName;
 
             return (
               <button
-                key={cat}
-                onClick={() => onSelectCategory && onSelectCategory(cat)}
+                key={catName}
+                onClick={() => onSelectCategory && onSelectCategory(catName)}
                 aria-pressed={active}
                 className={`group relative flex-shrink-0 w-32 aspect-[4/5] rounded-2xl overflow-hidden flex flex-col justify-end text-left transition-all duration-300 focus:outline-none ${
                   active
@@ -84,8 +39,8 @@ export default function CategorySection({
               >
                 {/* Background Image */}
                 <img
-                  src={categoryMeta.image}
-                  alt={cat}
+                  src={catImage}
+                  alt={catName}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
@@ -102,7 +57,7 @@ export default function CategorySection({
                     }`}
                   >
                     <span className="block text-xs font-bold tracking-wide uppercase truncate">
-                      {cat}
+                      {catName}
                     </span>
                   </div>
                 </div>

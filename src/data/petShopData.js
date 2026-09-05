@@ -1,9 +1,29 @@
 export const petShopCategories = [
-  "All",
-  "Dog Food",
-  "Cat Food",
-  "Toys",
-  "Accessories",
+  {
+    name: "All",
+    image:
+      "https://images.pexels.com/photos/6271082/pexels-photo-6271082.jpeg?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    name: "Dog Food",
+    image:
+      "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    name: "Cat Food",
+    image:
+      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    name: "Toys",
+    image:
+      "https://images.pexels.com/photos/27636744/pexels-photo-27636744.jpeg?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    name: "Accessories",
+    image:
+      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=400&q=80",
+  },
 ];
 
 export const petShopProducts = [
@@ -546,7 +566,11 @@ export const petShopProducts = [
   },
 ];
 
-export function getRelatedProducts(product, allProducts = petShopProducts, max = 4) {
+export function getRelatedProducts(
+  product,
+  allProducts = petShopProducts,
+  max = 4,
+) {
   if (!product) return [];
   if (product.relatedIds && product.relatedIds.length > 0) {
     return product.relatedIds

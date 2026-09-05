@@ -1,9 +1,29 @@
 export const pharmacyCategories = [
-  "All",
-  "Vitamins & Supplements",
-  "Pain Relief",
-  "Flea & Tick",
-  "Skin Care",
+  {
+    name: "All",
+    image:
+      "https://images.pexels.com/photos/6271082/pexels-photo-6271082.jpeg?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    name: "Vitamins & Supplements",
+    image:
+      "https://images.pexels.com/photos/17891281/pexels-photo-17891281.jpeg?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    name: "Pain Relief",
+    image:
+      "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    name: "Flea & Tick",
+    image:
+      "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    name: "Skin Care",
+    image:
+      "https://images.pexels.com/photos/4588066/pexels-photo-4588066.jpeg?auto=format&fit=crop&w=400&q=80",
+  },
 ];
 
 export const pharmacyProducts = [
