@@ -10,7 +10,7 @@ const features = [
     title: "Trusted Veterinary Experts",
     description:
       "Consult experienced, verified veterinarians committed to reliable care for every animal.",
-    image: services[0].image,
+    image: "https://images.pexels.com/photos/1350591/pexels-photo-1350591.jpeg",
   },
   {
     id: 2,

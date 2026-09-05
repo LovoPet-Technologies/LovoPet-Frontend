@@ -10,7 +10,7 @@ const steps = [
     title: "Create Your Profile",
     description:
       "Sign up in a few clicks and set up a profile for every animal in your care.",
-    image: services[4].image,
+    image: "https://images.pexels.com/photos/4492134/pexels-photo-4492134.jpeg",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const steps = [
     title: "Choose a Service",
     description:
       "Browse vet consultations, pharmacy, shopping, adoption, and AI-powered care.",
-    image: services[2].image,
+    image: "https://images.pexels.com/photos/3736313/pexels-photo-3736313.jpeg",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const steps = [
     title: "Get Expert Care",
     description:
       "Book appointments, get professional guidance, and manage healthcare with confidence.",
-    image: services[0].image,
+    image: "https://images.pexels.com/photos/39192330/pexels-photo-39192330.jpeg",
   },
 ];
 
