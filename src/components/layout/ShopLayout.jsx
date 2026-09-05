@@ -49,6 +49,7 @@ export default function ShopLayout({
   return (
     <div className="min-h-screen bg-[#FAF6F0] text-[#3B1843] font-sans">
       <HeroBanner title={heroTitle} subtitle={heroSubtitle} />
+
       <CategorySection
         categories={categories}
         selectedCategory={selectedCategory}
