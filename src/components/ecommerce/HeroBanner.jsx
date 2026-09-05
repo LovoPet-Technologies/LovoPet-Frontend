@@ -82,7 +82,7 @@ export default function HeroBanner({ title, subtitle }) {
 
         <p className="text-zinc-600 text-base md:text-lg max-w-xl mx-auto mb-8 font-medium">
           {subtitle ||
-            "Everything your pet needs — vet visits, medicine, food and toys, curated in one place."}
+            "Everything your pet needs; vet visits, medicine, food and toys, curated in one place."}
         </p>
 
         <div className="flex items-center justify-center gap-3">

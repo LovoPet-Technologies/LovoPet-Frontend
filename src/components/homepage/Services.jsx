@@ -39,7 +39,7 @@ function Services() {
 
           <p className="mt-4 text-base lg:text-lg leading-7 lg:leading-8 text-gray-600">
             LovoPet brings together vet care, medicine, shopping, AI triage, and
-            adoption — for cats and dogs, and for cows, birds, and every other
+            adoption for cats and dogs, and for cows, birds, and every other
             animal in your life.
           </p>
         </div>

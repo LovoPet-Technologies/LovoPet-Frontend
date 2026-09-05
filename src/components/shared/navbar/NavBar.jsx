@@ -15,7 +15,9 @@ import { homeNavbarLinks, appNavbarLinks } from "./navbarLinks";
 import UserDropdown from "./UserDropdown";
 import MegaMenuPanel from "./MegaMenuPanel";
 
-const SCROLL_HIDE_THRESHOLD = 120; // px scrolled down before the subnav hides
+const SCROLL_HIDE_THRESHOLD = 120; // px scrolled down
+const SUBNAV_BG = "#2E1A38";
+const SUBNAV_BORDER = "rgba(255,255,255,0.08)";
 
 function NavBar() {
   const [open, setOpen] = useState(false);
@@ -152,7 +154,7 @@ function NavBar() {
   return (
     <nav
       className={`fixed top-0 z-50 w-full border-b border-[#5C2A73]/10 bg-[#FDF8F2]/95 backdrop-blur-md transition-shadow duration-300 ${
-        scrolled ? "shadow-[0_2px_12px_rgba(92,42,115,0.08)]" : ""
+        scrolled ? "shadow-[0_2px_12px_rgba(46,26,56,0.12)]" : ""
       }`}
     >
       {/* Top bar: subnav toggle (appears when collapsed), logo, search, utility icons, auth */}
@@ -271,7 +273,6 @@ function NavBar() {
         </div>
       </div>
 
-      {/* Always-visible search row on mobile — ecom apps put search up front, not buried in a menu */}
       <div className="border-t border-[#5C2A73]/10 px-4 py-2.5 md:hidden">
         <form onSubmit={handleSearchSubmit}>
           <div className="flex items-center overflow-hidden rounded-full border border-[#5C2A73]/15 bg-white">
@@ -294,51 +295,62 @@ function NavBar() {
         </form>
       </div>
 
-      {/* Sub navbar: category links, some with a mega menu. Collapses on scroll-down. */}
-      <div
-        className={`relative hidden overflow-hidden border-t border-white/10 bg-[#5C2A73] transition-[max-height,opacity] duration-300 ease-in-out lg:block ${
-          subnavVisible ? "max-h-14 opacity-100" : "max-h-0 opacity-0"
-        }`}
-        onMouseLeave={scheduleClose}
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <ul className="flex items-center gap-6 xl:gap-8">
-            {currentNavLinks.map((link) => {
-              const isActive = activePath === link.path;
-              const hasMega = Boolean(link.megaMenu);
+      {/*
+        Sub navbar wrapper: this outer element stays overflow-visible so the
+        mega menu panel (a sibling below the bar, not a child clipped by it)
+        can render fully. Only the thin bar itself animates/collapses.
+      */}
+      <div className="relative hidden lg:block" onMouseLeave={scheduleClose}>
+        <div
+          className="overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out"
+          style={{
+            maxHeight: subnavVisible ? "3.5rem" : "0rem",
+            opacity: subnavVisible ? 1 : 0,
+            backgroundColor: SUBNAV_BG,
+            borderTop: `1px solid ${SUBNAV_BORDER}`,
+          }}
+        >
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ul className="flex items-center gap-6 xl:gap-8">
+              {currentNavLinks.map((link) => {
+                const isActive = activePath === link.path;
+                const hasMega = Boolean(link.megaMenu);
 
-              return (
-                <li
-                  key={link.id}
-                  onMouseEnter={() => hasMega && openMenu(link.id)}
-                >
-                  <a
-                    href={link.path}
-                    onClick={(e) => handleNavClick(e, link.path)}
-                    className={`flex items-center gap-1 py-3 text-[13px] font-medium tracking-wide transition-colors duration-200 xl:text-sm ${
-                      isActive || openMenuId === link.id
-                        ? "text-[#F4A96B]"
-                        : "text-white/90 hover:text-[#F4A96B]"
-                    }`}
+                return (
+                  <li
+                    key={link.id}
+                    onMouseEnter={() => hasMega && openMenu(link.id)}
                   >
-                    {link.name}
-                    {hasMega && (
-                      <ChevronDown
-                        size={14}
-                        className={`transition-transform duration-200 ${
-                          openMenuId === link.id ? "rotate-180" : ""
-                        }`}
-                      />
-                    )}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+                    <a
+                      href={link.path}
+                      onClick={(e) => handleNavClick(e, link.path)}
+                      className={`flex items-center gap-1 py-3 text-[13px] font-medium tracking-wide transition-colors duration-200 xl:text-sm ${
+                        isActive || openMenuId === link.id
+                          ? "text-[#F2A365]"
+                          : "text-white/85 hover:text-[#F2A365]"
+                      }`}
+                    >
+                      {link.name}
+                      {hasMega && (
+                        <ChevronDown
+                          size={14}
+                          className={`transition-transform duration-200 ${
+                            openMenuId === link.id ? "rotate-180" : ""
+                          }`}
+                        />
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
 
-        {activeMegaLink && (
+        {/* Dropdown lives outside the collapsing/clipping container above */}
+        {subnavVisible && activeMegaLink && (
           <div
+            className="absolute inset-x-0 top-full z-40"
             onMouseEnter={() => openMenu(activeMegaLink.id)}
             onMouseLeave={scheduleClose}
           >
@@ -428,7 +440,7 @@ function NavBar() {
                 className="flex w-full items-center justify-center gap-2 rounded-full bg-[#E86A33] px-4 py-3 text-center text-sm font-semibold text-white hover:bg-[#5C2A73]"
               >
                 <LogIn size={18} />
-                Login / Sign Up
+                Login
               </button>
             </div>
           )}

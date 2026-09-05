@@ -12,6 +12,7 @@ const CATEGORY_DATA = {
     image:
       "https://images.pexels.com/photos/6271082/pexels-photo-6271082.jpeg?auto=format&fit=crop&w=400&q=80",
   },
+  // Pet Shop Categories
   "Dog Food": {
     image:
       "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=400&q=80",
@@ -28,17 +29,22 @@ const CATEGORY_DATA = {
     image:
       "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=400&q=80",
   },
-  "Bird Care": {
+  // Pharmacy Categories
+  Vitamins: {
     image:
-      "https://images.pexels.com/photos/37331347/pexels-photo-37331347.jpeg?auto=format&fit=crop&w=400&q=80",
+      "https://images.pexels.com/photos/17891281/pexels-photo-17891281.jpeg?auto=format&fit=crop&w=400&q=80",
   },
-  Aquarium: {
+  "Pain Relief": {
     image:
-      "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&w=400&q=80",
   },
-  Grooming: {
+  "Flea & Tick": {
     image:
-      "https://images.pexels.com/photos/19145877/pexels-photo-19145877.jpeg?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=400&q=80",
+  },
+  "Skin Care": {
+    image:
+      "https://images.pexels.com/photos/4588066/pexels-photo-4588066.jpeg?auto=format&fit=crop&w=400&q=80",
   },
 };
 
@@ -47,6 +53,7 @@ export default function CategorySection({
   selectedCategory,
   onSelectCategory,
 }) {
+  // Use passed category array or fall back to CATEGORY_DATA keys
   const displayCategories =
     propCategories && propCategories.length > 0
       ? propCategories
@@ -58,7 +65,8 @@ export default function CategorySection({
         <div className="flex gap-4 overflow-x-auto no-scrollbar py-2 px-4">
           {displayCategories.map((cat) => {
             const active = selectedCategory === cat;
-            const data = CATEGORY_DATA[cat] || CATEGORY_DATA.All;
+            // Match category image or fallback to 'All' image
+            const categoryMeta = CATEGORY_DATA[cat] || CATEGORY_DATA.All;
 
             return (
               <button
@@ -76,15 +84,15 @@ export default function CategorySection({
               >
                 {/* Background Image */}
                 <img
-                  src={data.image}
+                  src={categoryMeta.image}
                   alt={cat}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
-                {/* Multi-step overlay for seamless contrast */}
+                {/* Gradient Contrast Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
 
-                {/* Bottom Title Container */}
+                {/* Bottom Title Bar */}
                 <div className="relative z-10 p-3 w-full">
                   <div
                     className={`px-2.5 py-1.5 rounded-lg transition-colors duration-200 text-center ${

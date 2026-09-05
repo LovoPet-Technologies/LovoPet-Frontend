@@ -21,7 +21,7 @@ function Footer() {
 
             <p className="mt-2 text-sm leading-6 text-gray-600">
               Connecting pets, farm animals, and their people with
-              veterinarians, rescuers, and AI-powered support — one platform for
+              veterinarians, rescuers, and AI-powered support in one platform for
               every kind of animal.
             </p>
 

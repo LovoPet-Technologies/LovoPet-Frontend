@@ -8,7 +8,7 @@ function ForgotPassword({ onBack }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // no api call — UI only, just show success state
+
     setSent(true);
   };
 

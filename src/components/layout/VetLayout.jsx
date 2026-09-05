@@ -50,7 +50,7 @@ export default function VetLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] px-4 pt-25 sm:px-8 lg:px-16">
+    <div className="min-h-screen bg-[#FAF7F2] px-4 pt-30 sm:px-8 lg:px-16">
       <div className="mx-auto max-w-7xl">
         {/* Header Section */}
         <div className="mb-10 text-center">
