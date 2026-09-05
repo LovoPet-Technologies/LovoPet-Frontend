@@ -1,8 +1,3 @@
-// Shared helpers for Pet Shop + Animal Pharmacy product data.
-// Lets ProductDetailsPage show Supertails-style sections (highlights,
-// key benefits, how to use, ingredients, reviews) even though the raw
-// data files don't define them explicitly.
-
 export function getRelatedProducts(product, allProducts = [], max = 4) {
   if (!product) return [];
   if (product.relatedIds && product.relatedIds.length > 0) {

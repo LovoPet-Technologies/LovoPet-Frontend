@@ -43,13 +43,14 @@ const CATEGORY_DATA = {
 };
 
 export default function CategorySection({
-  categories: propCategories = [],
+  categories: propCategories,
   selectedCategory,
   onSelectCategory,
 }) {
-  const displayCategories = Array.from(
-    new Set([...(propCategories || []), ...Object.keys(CATEGORY_DATA)]),
-  );
+  const displayCategories =
+    propCategories && propCategories.length > 0
+      ? propCategories
+      : Object.keys(CATEGORY_DATA);
 
   return (
     <section style={{ backgroundColor: PALETTE.cream }} className="py-6">

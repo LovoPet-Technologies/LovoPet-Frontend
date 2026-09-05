@@ -1,6 +1,6 @@
 export const pharmacyCategories = [
   "All",
-  "Vitamins & Supplements",
+  "Vitamins",
   "Pain Relief",
   "Flea & Tick",
   "Skin Care",
