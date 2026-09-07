@@ -1,6 +1,5 @@
 // HeroBanner.jsx
 import React, { useState, useEffect } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Sample ad banners for full-width background
 const HERO_BANNERS = [
@@ -61,18 +60,8 @@ export default function HeroBanner({ title, subtitle }) {
     return () => clearInterval(timer);
   }, []);
 
-  const handlePrev = () => {
-    setCurrentIndex(
-      (prev) => (prev - 1 + HERO_BANNERS.length) % HERO_BANNERS.length,
-    );
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % HERO_BANNERS.length);
-  };
-
   return (
-    <section className="group relative overflow-hidden bg-[#FBF6EF] flex flex-col">
+    <section className="group relative overflow-hidden bg-[#FBF6EF] flex flex-col touch-pan-y">
       {/* BACKGROUND SLIDER TRACK */}
       <div className="absolute inset-0 z-0">
         <div
@@ -90,10 +79,10 @@ export default function HeroBanner({ title, subtitle }) {
           ))}
         </div>
 
-        {/* GRADIENT OVERLAY (Guarantees text readability on left side) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#FBF6EF] via-[#FBF6EF]/90 via-55% to-transparent" />
-        {/* Extra bottom-up overlay on mobile so text is readable even when image is behind it top-to-bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#FBF6EF] via-[#FBF6EF]/40 via-30% to-transparent md:hidden" />
+        {/* GRADIENT OVERLAY (Guarantees text readability on left side) — lightened so the photo stays clear */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#FBF6EF] via-[#FBF6EF]/70 via-45% to-transparent" />
+        {/* Extra bottom-up overlay on mobile, kept subtle */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#FBF6EF] via-[#FBF6EF]/25 via-25% to-transparent md:hidden" />
       </div>
 
       {/* HERO CONTENT — vertically centered, independent of section height */}
@@ -132,55 +121,27 @@ export default function HeroBanner({ title, subtitle }) {
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center md:justify-start">
               <a
                 href="#products"
-                className="inline-flex w-full items-center justify-center rounded-full px-7 py-3 font-semibold text-white shadow-[0_10px_24px_-8px_rgba(224,96,58,0.55)] transition-all duration-200 hover:-translate-y-0.5 sm:w-auto sm:py-3.5"
+                className="inline-flex w-auto items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(224,96,58,0.55)] transition-all duration-200 hover:-translate-y-0.5 sm:px-7 sm:py-3.5 sm:text-base"
                 style={{ background: "#E0603A" }}
               >
                 Shop now
-              </a>
-
-              <a
-                href="/vet"
-                className="inline-flex w-full items-center justify-center rounded-full border-2 px-7 py-3 font-semibold transition-all duration-200 hover:bg-white sm:w-auto sm:py-3.5"
-                style={{
-                  borderColor: "#3B1843",
-                  color: "#3B1843",
-                }}
-              >
-                Book a vet visit
               </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* SLIDER CONTROLS — always visible on touch/mobile, hover-reveal on desktop */}
-      <button
-        onClick={handlePrev}
-        aria-label="Previous Slide"
-        className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-2 text-gray-800 backdrop-blur-sm transition-opacity duration-200 sm:left-4 md:opacity-0 md:group-hover:opacity-100 hover:bg-white"
-      >
-        <FaChevronLeft size={16} />
-      </button>
-
-      <button
-        onClick={handleNext}
-        aria-label="Next Slide"
-        className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/80 p-2 text-gray-800 backdrop-blur-sm transition-opacity duration-200 sm:right-4 md:opacity-0 md:group-hover:opacity-100 hover:bg-white"
-      >
-        <FaChevronRight size={16} />
-      </button>
-
-      {/* Pagination Indicators — small centered row on mobile, bottom-right on desktop */}
-      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1.5 md:bottom-12 md:right-12 md:left-auto md:translate-x-0">
+      {/* Pagination Indicators — desktop only, no arrow buttons at all */}
+      <div className="absolute bottom-12 right-12 z-20 hidden items-center gap-2 md:flex">
         {HERO_BANNERS.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
             aria-label={`Go to slide ${index + 1}`}
-            className={`h-2 rounded-full transition-all duration-300 sm:h-2.5 ${
+            className={`h-2.5 rounded-full transition-all duration-300 ${
               currentIndex === index
-                ? "w-6 bg-[#E0603A] sm:w-8"
-                : "w-2 bg-[#3B1843]/30 hover:bg-[#3B1843]/60 sm:w-2.5"
+                ? "w-8 bg-[#E0603A]"
+                : "w-2.5 bg-[#3B1843]/30 hover:bg-[#3B1843]/60"
             }`}
           />
         ))}
