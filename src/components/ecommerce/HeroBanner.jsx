@@ -80,7 +80,7 @@ export default function HeroBanner({ title, subtitle }) {
         </div>
 
         {/* GRADIENT OVERLAY (Guarantees text readability on left side) — lightened so the photo stays clear */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#FBF6EF] via-[#FBF6EF]/70 via-45% to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#FBF6EF] via-[#FBF6EF]/30 via-45% to-transparent" />
         {/* Extra bottom-up overlay on mobile, kept subtle */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#FBF6EF] via-[#FBF6EF]/25 via-25% to-transparent md:hidden" />
       </div>
