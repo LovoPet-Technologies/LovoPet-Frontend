@@ -5,7 +5,7 @@ import { services, barColors } from "./homepageData";
 import SectionNav from "./SectionNav";
 
 const quickLinks = [
-  { label: "Book a Vet", path: "/vet", imageIndex: 0, color: "#5C2A73" },
+  { label: "Book a veterinary", path: "/vet", imageIndex: 0, color: "#5C2A73" },
   {
     label: "Order Medicines",
     path: "/animal-pharmacy",
