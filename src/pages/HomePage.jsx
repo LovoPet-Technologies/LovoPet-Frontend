@@ -5,7 +5,6 @@ import ShopPreview from "../components/homepage/ShopPreview";
 import WhyChooseUs from "../components/homepage/WhyChooseUs";
 import HowItWorks from "../components/homepage/HowItWorks";
 import Testimonials from "../components/homepage/Testimonials";
-import Footer from "../components/homepage/Footer";
 
 function HomePage() {
   return (
@@ -18,9 +17,6 @@ function HomePage() {
         <HowItWorks />
         <Testimonials />
       </main>
-      <section id="contact" className="scroll-mt-16">
-        <Footer />
-      </section>
     </>
   );
 }

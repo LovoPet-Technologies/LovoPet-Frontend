@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import NavBar from "./components/shared/navbar/NavBar";
+import Footer from "./components/shared/Footer";
 import HomePage from "./pages/HomePage";
 import CTASection from "./pages/Ctasection";
 import AuthPage from "./pages/AuthPage";
@@ -12,9 +13,13 @@ import VetLayout from "./components/layout/VetLayout";
 
 function App() {
   const location = useLocation();
+
+  const hideNavAndFooter = location.pathname === "/auth";
+
   return (
     <>
-      {location.pathname !== "/auth" && <NavBar />}
+      {!hideNavAndFooter && <NavBar />}
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/team" element={<CTASection />} />
@@ -25,6 +30,8 @@ function App() {
         <Route path="/vet-apply" element={<VeterinarianApplicationPage />} />
         <Route path="/vet" element={<VetLayout />} />
       </Routes>
+
+      {!hideNavAndFooter && <Footer />}
     </>
   );
 }
