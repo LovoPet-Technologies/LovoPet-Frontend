@@ -64,60 +64,64 @@ function Hero() {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="relative h-[560px] w-full sm:h-[620px] lg:h-[680px]">
+      <div className="relative h-[580px] w-full sm:h-[620px] lg:h-[680px]">
         {slides.map((s, i) => (
-          <img
-            key={s.id}
-            src={s.image}
-            alt={s.title}
-            style={{ objectPosition: s.imagePosition || "center" }}
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
-              i === active ? "opacity-100" : "opacity-0"
-            }`}
-          />
+          <picture key={s.id}>
+            <img
+              src={s.image}
+              alt={s.title}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
+                i === active ? "opacity-100" : "opacity-0"
+              }`}
+              style={{
+                objectPosition:
+                  window.innerWidth < 640
+                    ? s.imagePositionMobile || s.imagePosition || "center"
+                    : s.imagePosition || "center",
+              }}
+            />
+          </picture>
         ))}
 
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
+        {/* OVERLAYS */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80 sm:bg-gradient-to-r sm:from-black/70 sm:via-black/30 sm:to-transparent" />
 
-        <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-center px-6 lg:px-10">
+        <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-center px-5 sm:px-6 lg:px-10 pb-12 sm:pb-0">
           <div className="max-w-2xl">
-            <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-black/20 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md sm:text-sm">
-              <Icon size={16} className="text-[#F4A96B]" />
+            <div className="mb-3 inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-black/30 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md sm:mb-5 sm:px-4 sm:py-2 sm:text-sm">
+              <Icon size={15} className="text-[#F4A96B]" />
               {slide.tag}
             </div>
 
-            <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl drop-shadow-sm">
+            <h1 className="text-3xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl drop-shadow-md">
               {titlePrefix && (
                 <>
                   {titlePrefix}
-                  <br />
+                  <br className="hidden sm:inline" />{" "}
                 </>
               )}
               <span className="text-[#F4A96B]">{slide.highlight}</span>
             </h1>
 
-            <p className="mt-5 max-w-xl text-sm leading-relaxed text-white sm:mt-6 sm:text-base lg:text-lg drop-shadow">
+            <p className="mt-3 max-w-xl text-xs leading-relaxed text-gray-100 sm:mt-6 sm:text-base lg:text-lg drop-shadow">
               {slide.description}
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            {/* Compact Mobile Buttons */}
+            <div className="mt-5 flex flex-wrap items-center gap-2.5 sm:gap-4">
               <button
                 onClick={() => navigate(slide.ctaPath)}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E86A33] px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white hover:text-[#5C2A73] sm:text-base"
+                className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#E86A33] px-4 py-2.5 text-[11px] font-bold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-white hover:text-[#5C2A73] sm:px-7 sm:py-3.5 sm:text-base"
               >
                 {slide.ctaLabel}
-                <ArrowRight size={18} />
-              </button>
-              <button
-                onClick={() => navigate("/services")}
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/60 bg-black/20 px-7 py-3.5 text-sm font-bold text-white backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white hover:text-gray-900 sm:text-base"
-              >
-                Explore all services
+                <ArrowRight size={14} className="sm:hidden" />
+                <ArrowRight size={18} className="hidden sm:block" />
               </button>
             </div>
           </div>
         </div>
 
+        {/* Desktop Controls */}
         <button
           onClick={prev}
           aria-label="Previous slide"
@@ -133,7 +137,8 @@ function Hero() {
           <ChevronRight size={22} />
         </button>
 
-        <div className="absolute bottom-14 left-1/2 z-10 flex -translate-x-1/2 gap-2 sm:bottom-16">
+        {/* Indicators */}
+        <div className="absolute bottom-12 left-1/2 z-10 flex -translate-x-1/2 gap-2 sm:bottom-16">
           {slides.map((s, i) => (
             <button
               key={s.id}

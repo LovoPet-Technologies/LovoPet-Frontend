@@ -22,6 +22,7 @@ export const services = [
     image:
       "https://images.pexels.com/photos/6235114/pexels-photo-6235114.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
     imagePosition: "center",
+    imagePositionMobile: "right center", // Shifts image to show vet/dog subject on mobile
     ctaLabel: "Book a consultation",
     ctaPath: "/vet",
   },
@@ -39,6 +40,7 @@ export const services = [
     image:
       "https://images.pexels.com/photos/9742910/pexels-photo-9742910.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
     imagePosition: "center",
+    imagePositionMobile: "center",
     ctaLabel: "Visit the pharmacy",
     ctaPath: "/animal-pharmacy",
   },
@@ -56,6 +58,7 @@ export const services = [
     image:
       "https://images.pexels.com/photos/4445456/pexels-photo-4445456.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
     imagePosition: "center top",
+    imagePositionMobile: "center top",
     ctaLabel: "Shop now",
     ctaPath: "/pet-shop",
   },
@@ -73,6 +76,7 @@ export const services = [
     image:
       "https://images.pexels.com/photos/34636800/pexels-photo-34636800.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
     imagePosition: "center",
+    imagePositionMobile: "center",
     ctaLabel: "Try the assistant",
     ctaPath: "/services/ai-assistant",
   },
@@ -90,6 +94,7 @@ export const services = [
     image:
       "https://images.pexels.com/photos/16620585/pexels-photo-16620585.jpeg?q=80&w=1920&h=1080&auto=format&fit=crop",
     imagePosition: "center",
+    imagePositionMobile: "center",
     ctaLabel: "Start adopting",
     ctaPath: "/adoption",
   },
