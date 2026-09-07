@@ -10,48 +10,52 @@ export default function FilterSortBar({
   resultCount,
 }) {
   return (
-    <div id="products" className="flex flex-col gap-4 mb-7 pt-2">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="relative w-full md:w-96">
+    <div id="products" className="mb-4 flex flex-col gap-2.5 pt-1">
+      {/* Inline Search and Sort Row */}
+      <div className="flex items-center gap-2">
+        {/* Search Input Box */}
+        <div className="relative flex-1">
           <Search
-            size={17}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+            size={15}
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400"
           />
           <input
             type="text"
             placeholder="Search food, medicine, toys..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white border border-[#E8DFD3] rounded-2xl pl-11 pr-4 py-3 text-[#3B1843] placeholder-zinc-400 focus:outline-none focus:border-[#E0603A] focus:ring-2 focus:ring-[#E0603A]/15 text-sm shadow-sm transition"
+            className="w-full rounded-xl border border-[#E8DFD3] bg-white py-2 pl-9 pr-3 text-xs font-medium text-[#3B1843] shadow-xs transition placeholder:text-zinc-400 focus:border-[#E0603A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#E0603A]/15 lg:text-sm"
           />
         </div>
 
-        <div className="flex items-center gap-2 bg-white border border-[#E8DFD3] px-4 py-3 rounded-2xl text-sm shadow-sm w-full md:w-auto justify-between md:justify-start">
-          <SlidersHorizontal size={15} className="text-[#748757]" />
-          <span className="font-medium text-zinc-500 whitespace-nowrap">
-            Sort by
-          </span>
-          <div className="relative">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="appearance-none bg-transparent text-[#3B1843] font-bold focus:outline-none cursor-pointer pr-5 text-sm"
-            >
-              <option value="popularity">Popularity</option>
-              <option value="low-high">Price: low to high</option>
-              <option value="high-low">Price: high to low</option>
-              <option value="rating">Top rated</option>
-            </select>
-            <ChevronDown
-              size={13}
-              className="absolute right-0 top-1/2 -translate-y-1/2 text-[#3B1843] pointer-events-none"
-            />
+        {/* Compact Sort Button */}
+        <div className="relative flex shrink-0 items-center rounded-xl border border-[#E8DFD3] bg-white px-3 py-2 text-xs font-bold text-[#3B1843] shadow-xs transition hover:border-[#E0603A] lg:text-sm">
+          <div className="flex items-center gap-1.5 pointer-events-none">
+            <SlidersHorizontal size={14} className="text-[#748757]" />
+            <span className="hidden sm:inline">Sort</span>
           </div>
+
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="absolute inset-0 w-full opacity-0 cursor-pointer text-xs lg:text-sm"
+          >
+            <option value="low-high">Price: Low to High</option>
+            <option value="high-low">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+          </select>
+
+          <ChevronDown
+            size={13}
+            className="pointer-events-none ml-1.5 text-[#3B1843]"
+          />
         </div>
       </div>
 
-      <p className="text-xs font-semibold text-zinc-400 tracking-wide">
-        {resultCount} {resultCount === 1 ? "product" : "products"} found
+      {/* Results Count Text */}
+      <p className="text-[11px] font-semibold tracking-wide text-zinc-400 sm:text-xs">
+        Showing <span className="text-[#3B1843]">{resultCount}</span>{" "}
+        {resultCount === 1 ? "product" : "products"}
       </p>
     </div>
   );
