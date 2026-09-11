@@ -189,7 +189,7 @@ function NavBar() {
           <img
             src="/logo.png"
             alt="LovoPet Logo"
-            className="h-10 w-auto object-contain sm:h-12"
+            className="h-12 w-auto object-contain sm:h-12"
           />
           <img
             src="/brandName.png"
@@ -261,7 +261,7 @@ function NavBar() {
                 className="inline-flex items-center gap-2 rounded-full bg-[#E86A33] px-5 py-2.5 text-[13px] font-semibold tracking-wide text-white shadow-sm shadow-[#E86A33]/30 transition-colors hover:bg-[#5C2A73] xl:text-sm"
               >
                 <LogIn size={16} />
-                Login / Sign Up
+                Login
               </button>
             )}
           </div>
