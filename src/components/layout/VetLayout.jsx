@@ -53,7 +53,7 @@ export default function VetLayout() {
     <div className="min-h-screen bg-[#FAF7F2] px-4 pt-30 sm:px-8 lg:px-16">
       <div className="mx-auto max-w-7xl">
         {/* Header Section */}
-        <div className="mb-10 text-center">
+        <div className="mb-10 text-center pt-3">
           <h1 className="text-3xl font-black text-[#3B1E43] sm:text-4xl lg:text-5xl">
             Find the right vet for your pet
           </h1>
