@@ -1,4 +1,3 @@
-import React from "react";
 import VeterinarianApplicationForm from "../components/veterinarian/VeterinarianApplicationForm";
 
 export default function VeterinarianApplicationPage() {
@@ -9,7 +8,7 @@ export default function VeterinarianApplicationPage() {
           <h1 className="text-2xl font-bold text-[#3D1E5C]">
             Join LovoPet as a Veterinarian
           </h1>
-          <p className="mt-1 text-sm text-[#3D1E5C]/70">
+          <p className="mt-1 text-sm text-[#3D1E5C]/70 pt-10">
             Fill in your details below to apply for collaboration with LovoPet.
           </p>
         </div>

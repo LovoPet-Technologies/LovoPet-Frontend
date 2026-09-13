@@ -53,7 +53,16 @@ const INITIAL_DATA = {
 };
 
 const REQUIRED_FIELDS_BY_STEP = {
-  1: ["fullName", "mobileNumber", "email", "languagesSpoken", "city", "state", "pinCode", "address"],
+  1: [
+    "fullName",
+    "mobileNumber",
+    "email",
+    "languagesSpoken",
+    "city",
+    "state",
+    "pinCode",
+    "address",
+  ],
   2: [
     "qualification",
     "yearOfPassing",
@@ -176,7 +185,10 @@ export default function VeterinarianApplicationForm() {
 
   const handleSubmit = async () => {
     if (!agreed) {
-      setErrors({ agreement: "You must agree to the Terms & Conditions and Privacy Policy." });
+      setErrors({
+        agreement:
+          "You must agree to the Terms & Conditions and Privacy Policy.",
+      });
       return;
     }
 
@@ -186,14 +198,22 @@ export default function VeterinarianApplicationForm() {
     try {
       const formData = buildFormData(data);
 
-      const response = await fetch("/api/veterinarians/applications/", {
-        method: "POST",
-        body: formData,
-      });
+      const API_URL = import.meta.env.VITE_API_URL || "";
+
+      const response = await fetch(
+        `${API_URL}/api/veterinarians/applications/`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      const responseData = await response.json().catch(() => null);
 
       if (!response.ok) {
-        const errorBody = await response.json().catch(() => null);
-        throw new Error(errorBody?.message || "Submission failed. Please try again.");
+        throw new Error(
+          responseData?.message || "Submission failed. Please try again.",
+        );
       }
 
       setSubmitted(true);
@@ -206,14 +226,16 @@ export default function VeterinarianApplicationForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-xl border border-[#8B9A5B]/25 bg-white p-8 text-center">
+      <div className="rounded-xl border border-[#8B9A5B]/25 bg-white pt-8 text-center">
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#8B9A5B]/15 text-2xl text-[#8B9A5B]">
           ✓
         </div>
-        <h2 className="text-lg font-semibold text-[#3D1E5C]">Application Submitted</h2>
+        <h2 className="text-lg font-semibold text-[#3D1E5C]">
+          Application Submitted
+        </h2>
         <p className="mt-2 text-sm text-[#3D1E5C]/70">
-          Thank you for applying to collaborate with LovoPet. Our team will review
-          your application and get back to you shortly.
+          Thank you for applying to collaborate with LovoPet. Our team will
+          review your application and get back to you shortly.
         </p>
       </div>
     );
@@ -224,16 +246,32 @@ export default function VeterinarianApplicationForm() {
       <FormStepper currentStep={step} />
 
       {step === 1 && (
-        <PersonalInfoStep data={data} onChange={handleFieldChange} errors={errors} />
+        <PersonalInfoStep
+          data={data}
+          onChange={handleFieldChange}
+          errors={errors}
+        />
       )}
       {step === 2 && (
-        <ProfessionalInfoStep data={data} onChange={handleFieldChange} errors={errors} />
+        <ProfessionalInfoStep
+          data={data}
+          onChange={handleFieldChange}
+          errors={errors}
+        />
       )}
       {step === 3 && (
-        <ClinicalInfoStep data={data} onChange={handleFieldChange} errors={errors} />
+        <ClinicalInfoStep
+          data={data}
+          onChange={handleFieldChange}
+          errors={errors}
+        />
       )}
       {step === 4 && (
-        <DocumentsStep data={data} onChange={handleFieldChange} errors={errors} />
+        <DocumentsStep
+          data={data}
+          onChange={handleFieldChange}
+          errors={errors}
+        />
       )}
       {step === 5 && (
         <ReviewStep
