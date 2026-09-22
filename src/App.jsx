@@ -9,6 +9,7 @@ import CheckEmail from "./pages/CheckEmail";
 import PetShop from "./pages/PetShop";
 import AnimalPharmacy from "./pages/AnimalPharmacy";
 import VeterinarianApplicationPage from "./pages/VeterinarianApplicationPage";
+import VendorApplicationPage from "./pages/VendorApplicationPage";
 import VetLayout from "./components/layout/VetLayout";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/pet-shop" element={<PetShop />} />
         <Route path="/animal-pharmacy" element={<AnimalPharmacy />} />
         <Route path="/vet-apply" element={<VeterinarianApplicationPage />} />
+        <Route path="/vendor-apply" element={<VendorApplicationPage />} />
         <Route path="/vet" element={<VetLayout />} />
       </Routes>
 
