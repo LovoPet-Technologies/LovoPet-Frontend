@@ -11,10 +11,10 @@ import AnimalPharmacy from "./pages/AnimalPharmacy";
 import VeterinarianApplicationPage from "./pages/VeterinarianApplicationPage";
 import VendorApplicationPage from "./pages/VendorApplicationPage";
 import VetLayout from "./components/layout/VetLayout";
+import AdoptionPage from "./pages/AdoptionPage"; // Import adoption page
 
 function App() {
   const location = useLocation();
-
   const hideNavAndFooter = location.pathname === "/auth";
 
   return (
@@ -27,6 +27,7 @@ function App() {
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/checkEmail" element={<CheckEmail />} />
         <Route path="/pet-shop" element={<PetShop />} />
+        <Route path="/adoption" element={<AdoptionPage />} />
         <Route path="/animal-pharmacy" element={<AnimalPharmacy />} />
         <Route path="/vet-apply" element={<VeterinarianApplicationPage />} />
         <Route path="/vendor-apply" element={<VendorApplicationPage />} />
