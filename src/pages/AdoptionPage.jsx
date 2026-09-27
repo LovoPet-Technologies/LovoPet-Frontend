@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import HeroBanner from "../components/ecommerce/HeroBanner";
 import CategorySection from "../components/ecommerce/CategorySection";
 import FilterSortBar from "../components/ecommerce/FilterSortBar";
