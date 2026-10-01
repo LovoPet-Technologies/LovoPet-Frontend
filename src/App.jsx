@@ -11,7 +11,8 @@ import AnimalPharmacy from "./pages/AnimalPharmacy";
 import VeterinarianApplicationPage from "./pages/VeterinarianApplicationPage";
 import VendorApplicationPage from "./pages/VendorApplicationPage";
 import VetLayout from "./components/layout/VetLayout";
-import AdoptionPage from "./pages/AdoptionPage"; // Import adoption page
+import AdoptionPage from "./pages/AdoptionPage";
+import ChatbotWidget from "./components/shared/ChatbotWidget";
 
 function App() {
   const location = useLocation();
@@ -35,8 +36,9 @@ function App() {
       </Routes>
 
       {!hideNavAndFooter && <Footer />}
+
+      <ChatbotWidget />
     </>
   );
 }
-
 export default App;
