@@ -220,7 +220,7 @@ function MaxFeeSlider({ maxFee, setMaxFee, last }) {
       <input
         type="range"
         min="300"
-        max="1000"
+        max="2000"
         step="50"
         value={maxFee}
         onChange={(e) => setMaxFee(Number(e.target.value))}
@@ -228,7 +228,7 @@ function MaxFeeSlider({ maxFee, setMaxFee, last }) {
       />
       <div className="mt-1 flex justify-between text-[10px] font-medium text-gray-400">
         <span>₹300</span>
-        <span>₹1000</span>
+        <span>₹2000</span>
       </div>
     </div>
   );

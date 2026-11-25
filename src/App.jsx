@@ -15,11 +15,16 @@ import VetLayout from "./components/layout/VetLayout";
 import AdoptionPage from "./pages/AdoptionPage";
 import ChatbotWidget from "./components/shared/ChatbotWidget";
 import AdminDashboard from "./pages/AdminDashboard";
+import VetAdminLogin from "./pages/VetAdminLogin";
+import VetAdminDashboard from "./pages/VetAdminDashboard";
+import MyConsultationsPage from "./pages/MyConsultationsPage";
+import MyPetsPage from "./pages/MyPetsPage";
 
 function App() {
   const location = useLocation();
 
-  const isAdminRoute = location.pathname.startsWith("/admin");
+  const isVetAdminRoute = location.pathname.startsWith("/vet-admin");
+  const isAdminRoute = location.pathname.startsWith("/admin") || isVetAdminRoute;
   const hideNavAndFooter = location.pathname === "/auth" || isAdminRoute;
 
   return (
@@ -38,12 +43,22 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
 
+        {/* Veterinary Admin portal */}
+        <Route path="/vet-admin" element={<VetAdminLogin />} />
+        <Route path="/vet-admin/login" element={<VetAdminLogin />} />
+        <Route path="/vet-admin/dashboard" element={<VetAdminDashboard />} />
+
+        {/* Customer Booking & Consultation */}
+        <Route path="/vet" element={<VetLayout />} />
+        <Route path="/consult-vet" element={<VetLayout />} />
+        <Route path="/my-consultations" element={<MyConsultationsPage />} />
+        <Route path="/my-pets" element={<MyPetsPage />} />
+
         <Route path="/pet-shop" element={<PetShop />} />
         <Route path="/adoption" element={<AdoptionPage />} />
         <Route path="/animal-pharmacy" element={<AnimalPharmacy />} />
         <Route path="/vet-apply" element={<VeterinarianApplicationPage />} />
         <Route path="/vendor-apply" element={<VendorApplicationPage />} />
-        <Route path="/vet" element={<VetLayout />} />
       </Routes>
 
       {!hideNavAndFooter && <Footer />}

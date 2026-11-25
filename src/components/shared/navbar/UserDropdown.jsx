@@ -13,10 +13,13 @@ import {
   Gift,
   Bell,
   LogOut,
+  Video,
 } from "lucide-react";
 
 // Import your clearUser action from your Redux auth slice
 import { clearUser } from "../../../redux/slices/authSlice";
+
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function UserDropdown({ user }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +40,7 @@ export default function UserDropdown({ user }) {
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost:5000/auth/logout", {
+      await fetch(`${API_BASE}/auth/logout`, {
         method: "POST",
         credentials: "include", // Ensures backend receiving/clearing refresh token cookies
       });
@@ -52,6 +55,7 @@ export default function UserDropdown({ user }) {
   };
 
   const menuItems = [
+    { label: "My Consultations", icon: Video, path: "/my-consultations" },
     { label: "My Profile", icon: User, path: "/profile" },
     { label: "Orders", icon: Package, path: "/orders" },
     { label: "Coupons", icon: Ticket, path: "/coupons" },

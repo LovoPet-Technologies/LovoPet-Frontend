@@ -8,7 +8,7 @@ import Register from "../components/auth/Register";
 import ForgotPassword from "../components/auth/Forgotpassword";
 import { setAccessToken, setUser } from "../redux/slices/authSlice";
 
-const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function AuthPage() {
   const [view, setView] = useState("login");
@@ -33,6 +33,7 @@ function AuthPage() {
         body: JSON.stringify({
           email,
           password,
+          role: "customer",
         }),
       });
 
