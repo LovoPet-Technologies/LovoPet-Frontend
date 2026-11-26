@@ -20,13 +20,14 @@ import VetAdminDashboard from "./pages/VetAdminDashboard";
 import MyConsultationsPage from "./pages/MyConsultationsPage";
 import MyPetsPage from "./pages/MyPetsPage";
 import MyProfilePage from "./pages/MyProfilePage";
+import AuthCallback from "./pages/AuthCallback";
 
 function App() {
   const location = useLocation();
 
   const isVetAdminRoute = location.pathname.startsWith("/vet-admin");
   const isAdminRoute = location.pathname.startsWith("/admin") || isVetAdminRoute;
-  const hideNavAndFooter = location.pathname === "/auth" || isAdminRoute;
+  const hideNavAndFooter = location.pathname === "/auth" || location.pathname === "/AuthCallback" || location.pathname === "/auth-callback" || isAdminRoute;
 
   return (
     <>
@@ -39,6 +40,8 @@ function App() {
         {/* Customer/vendor authentication */}
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/checkEmail" element={<CheckEmail />} />
+        <Route path="/AuthCallback" element={<AuthCallback />} />
+        <Route path="/auth-callback" element={<AuthCallback />} />
 
         {/* Admin authentication and temporary landing page */}
         <Route path="/admin/login" element={<AdminLogin />} />
