@@ -19,6 +19,7 @@ import VetAdminLogin from "./pages/VetAdminLogin";
 import VetAdminDashboard from "./pages/VetAdminDashboard";
 import MyConsultationsPage from "./pages/MyConsultationsPage";
 import MyPetsPage from "./pages/MyPetsPage";
+import MyProfilePage from "./pages/MyProfilePage";
 
 function App() {
   const location = useLocation();
@@ -53,6 +54,8 @@ function App() {
         <Route path="/consult-vet" element={<VetLayout />} />
         <Route path="/my-consultations" element={<MyConsultationsPage />} />
         <Route path="/my-pets" element={<MyPetsPage />} />
+        <Route path="/profile" element={<MyProfilePage />} />
+        <Route path="/my-profile" element={<MyProfilePage />} />
 
         <Route path="/pet-shop" element={<PetShop />} />
         <Route path="/adoption" element={<AdoptionPage />} />

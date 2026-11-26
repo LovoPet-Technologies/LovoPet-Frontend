@@ -25,11 +25,16 @@ function CheckEmail() {
   const [cooldown, setCooldown] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const API = import.meta.env.VITE_API_URL;
+  const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   const handleResend = async () => {
     if (resendState !== "idle") return;
     setErrorMessage("");
+
+    if (!email) {
+      setErrorMessage("No email specified. Please navigate from registration or login.");
+      return;
+    }
 
     try {
       const res = await fetch(`${API}/auth/resend-verification`, {
@@ -37,7 +42,7 @@ function CheckEmail() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: email.trim() }),
       });
 
       const data = await res.json();

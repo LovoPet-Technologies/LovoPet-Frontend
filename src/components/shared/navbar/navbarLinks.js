@@ -70,16 +70,6 @@ export const homeNavbarLinks = [
           { label: "Book a Doctor", path: "/vet" },
           { label: "My Consultations", path: "/my-consultations", badge: "Live" },
           { label: "My Pets & Records", path: "/my-pets" },
-          { label: "Join Practice / Vet Apply", path: "/vet-apply" },
-        ],
-      },
-      {
-        title: "Specialties Available",
-        items: [
-          { label: "Internal Medicine & Surgery", path: "/vet" },
-          { label: "Canine & Feline Care", path: "/vet" },
-          { label: "Skin & Allergy Checkup", path: "/vet" },
-          { label: "Nutrition & Diet Consult", path: "/vet" },
         ],
       },
     ],
